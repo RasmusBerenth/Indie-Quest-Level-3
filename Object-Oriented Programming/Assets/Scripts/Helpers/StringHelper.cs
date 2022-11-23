@@ -18,7 +18,7 @@ namespace MonsterQuest
 
             if (count == 1)
             {
-                return items[0];
+                return items.First();
             }
 
             if (count == 2)
