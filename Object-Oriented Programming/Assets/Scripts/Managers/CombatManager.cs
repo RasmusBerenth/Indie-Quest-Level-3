@@ -14,11 +14,11 @@ namespace MonsterQuest
             int constitution = 5;
 
 
-            Console.WriteLine($"A {gameState.combat.monster.displayName} with {gameState.combat.monster.hitPoints}HP appears");
+            Console.WriteLine($"A {gameState.combat} with {gameState.combat.monster.hitPoints}HP appears");
 
             do
             {
-                foreach (var name in gameState.party.characters)
+                foreach (var character in gameState.party.characters)
                 {
                     int damage = DiceHelper.Roll("2d6");
 
@@ -26,12 +26,12 @@ namespace MonsterQuest
 
                     if (gameState.combat.monster.hitPoints <= 0)
                     {
-                        Console.WriteLine($"{name} hits the {gameState.combat.monster.displayName} for {damage} damage. {gameState.combat.monster.displayName} has 0 HP left.");
+                        Console.WriteLine($"{character} hits the {gameState.combat} for {damage} damage. {gameState.combat} has 0 HP left.");
                         break;
                     }
                     else
                     {
-                        Console.WriteLine($"{name} hits the {gameState.combat.monster.displayName} for {damage} damage. {gameState.combat.monster.displayName} has {gameState.combat.monster.hitPoints} HP left.");
+                        Console.WriteLine($"{character} hits the {gameState.combat} for {damage} damage. {gameState.combat} has {gameState.combat.monster.hitPoints} HP left.");
                     }
                 }
 
@@ -44,13 +44,13 @@ namespace MonsterQuest
 
                 Character targetName = gameState.party.characters[targetIndex];
 
-                Console.WriteLine($"The {gameState.combat.monster.displayName} made a killing blow aginst {targetName}!");
+                Console.WriteLine($"The {gameState.combat} made a killing blow aginst {targetName}!");
 
                 int savingThrow = DiceHelper.Roll("1d20");
 
                 if (constitution + savingThrow < gameState.combat.monster.savingThrow)
                 {
-                    Console.WriteLine($"{targetName} rolls a {savingThrow} and was killed by the {gameState.combat.monster.displayName}!");
+                    Console.WriteLine($"{targetName} rolls a {savingThrow} and was killed by the {gameState.combat}!");
                     gameState.party.characters.Remove(targetName);
                 }
                 else
@@ -63,11 +63,11 @@ namespace MonsterQuest
 
             if (gameState.combat.monster.hitPoints > 0)
             {
-                Console.WriteLine($"Your party has died and the {gameState.combat.monster.displayName} will ravish the lands!");
+                Console.WriteLine($"Your party has died and the {gameState.combat} will ravish the lands!");
             }
             else
             {
-                Console.WriteLine($"The {gameState.combat.monster.displayName} collapses and the heroes celebrate their victory!");
+                Console.WriteLine($"The {gameState.combat} collapses and the heroes celebrate their victory!");
             }
         }
     }

@@ -10,63 +10,66 @@ namespace MonsterQuest
         private CombatManager combatManager;
         private GameState gameState;
 
+
         private void Awake()
         {
             Transform combatTransform = transform.Find("Combat");
-            CombatManager combatManager = combatTransform.GetComponent<CombatManager>();
+            combatManager = combatTransform.GetComponent<CombatManager>();
         }
 
-        // Start is called before the first frame update
-        void Start()
+        public void Start()
         {
-            var names = new List<string>();
-            names.Add("Ken");
-            names.Add("Barby");
-            names.Add("Roland");
-            names.Add("Melissa");
-
-            Console.WriteLine($"A party of warriors {StringHelper.JoinWithAnd(names)} descends into the dungeon.");
-
-            //random HP orc (2d8+6) mage (9d8) and troll (8d10+40)
-            CombatManager.Simulate(gameState); //names, "orc", DiceHelper.Roll("2d8+6"), 12
-
-            if (names.Count > 0)
-            {
-                CombatManager.Simulate(gameState); //names, "mage", DiceHelper.Roll("9d8"), 20
-
-            }
-
-            if (names.Count > 0)
-            {
-                CombatManager.Simulate(gameState); //names, "troll", DiceHelper.Roll("8d10+40"), 18
-            }
-
-            if (names.Count > 0)
-            {
-                Console.WriteLine($"{StringHelper.JoinWithAnd(names)} survived the doungeon.");
-            }
+            NewGame();
+            Simulate();
         }
 
         private void NewGame()
         {
-            List<Character> heros = new List<Character>();
-            Party heroParty = new Party(heros);
 
             Character ken = new Character("Ken");
             Character barbie = new Character("Barbie");
             Character roland = new Character("Roland");
             Character melissa = new Character("Melissa");
+            List<Character> heros = new List<Character>();
             heros.Add(ken);
             heros.Add(barbie);
             heros.Add(roland);
             heros.Add(melissa);
 
+            Party heroParty = new Party(heros);
+
             gameState = new GameState(heroParty);
+
         }
 
         private void Simulate()
         {
+            Monster orc = new Monster("orc", DiceHelper.Roll("2d8+6"), 12);
+            Monster mage = new Monster("mage", DiceHelper.Roll("9d8"), 20);
+            Monster troll = new Monster("troll", DiceHelper.Roll("8d10+40"), 18);
 
+            Console.WriteLine($"A party of warriors {gameState.party} descends into the dungeon.");
+
+            //random HP orc (2d8+6) mage (9d8) and troll (8d10+40)
+            gameState.EnterCombatWithMonster(orc);
+            CombatManager.Simulate(gameState);
+
+            if (gameState.party.characters.Count > 0)
+            {
+                gameState.EnterCombatWithMonster(mage);
+                CombatManager.Simulate(gameState);
+            }
+
+            if (gameState.party.characters.Count > 0)
+            {
+                gameState.EnterCombatWithMonster(troll);
+                CombatManager.Simulate(gameState);
+            }
+
+            if (gameState.party.characters.Count > 0)
+            {
+                Console.WriteLine($"{gameState.party} survived the doungeon.");
+            }
         }
     }
 }

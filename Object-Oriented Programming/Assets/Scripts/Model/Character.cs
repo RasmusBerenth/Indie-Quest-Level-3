@@ -12,5 +12,10 @@ namespace MonsterQuest
         {
             this.displayName = displayName;
         }
+
+        public override string ToString()
+        {
+            return displayName;
+        }
     }
 }
