@@ -4,18 +4,18 @@ using UnityEngine;
 
 namespace MonsterQuest
 {
-    public class Character
+    public class Character : Creature
     {
-        public string displayName { get; private set; }
+        public string DisplayName { get; private set; }
 
-        public Character(string displayName)
+        public Character(int hitPointMaximum, string displayName, Sprite bodySprite, SizeCategory sizeCategory) : base(hitPointMaximum, displayName, bodySprite, sizeCategory)
         {
-            this.displayName = displayName;
+            this.DisplayName = displayName;
         }
 
         public override string ToString()
         {
-            return displayName;
+            return DisplayName;
         }
     }
 }
