@@ -8,7 +8,7 @@ namespace MonsterQuest
     {
         public string DisplayName { get; private set; }
 
-        public Character(int hitPointMaximum, string displayName, Sprite bodySprite, SizeCategory sizeCategory) : base(hitPointMaximum, displayName, bodySprite, sizeCategory)
+        public Character(int hitPointsMaximum, string displayName, Sprite bodySprite, SizeCategory sizeCategory) : base(hitPointsMaximum, displayName, bodySprite, sizeCategory)
         {
             this.DisplayName = displayName;
         }

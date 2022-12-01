@@ -12,8 +12,6 @@ namespace MonsterQuest
 
         public Monster(int hitPoint, string monsterName, int savingThrow, Sprite bodySprite, SizeCategory sizeCategory) : base(hitPoint, monsterName, bodySprite, sizeCategory)
         {
-            _displayName = monsterName;
-            _hitPoints = hitPoint;
             _savingThrow = savingThrow;
         }
 

@@ -10,7 +10,6 @@ namespace MonsterQuest
         private CombatManager combatManager;
         private GameState gameState;
 
-
         private void Awake()
         {
             Transform combatTransform = transform.Find("Combat");
@@ -25,7 +24,6 @@ namespace MonsterQuest
 
         private void NewGame()
         {
-
             Character ken = new Character("Ken");
             Character barbie = new Character("Barbie");
             Character roland = new Character("Roland");
@@ -39,7 +37,6 @@ namespace MonsterQuest
             Party heroParty = new Party(heros);
 
             gameState = new GameState(heroParty);
-
         }
 
         private void Simulate()
