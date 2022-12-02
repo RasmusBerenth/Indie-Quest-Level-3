@@ -49,9 +49,19 @@ namespace MonsterQuest
             _presenter = presenter;
         }
 
-        public void ReactToDamage(int damageAmount)
+        public IEnumerator ReactToDamage(int damageAmount)
         {
             _hitPoints = Mathf.Max(0, _hitPoints - damageAmount);
+
+            if (hitPoints <= 0)
+            {
+                yield return presenter.Die();
+            }
+
+            if (hitPoints > 0)
+            {
+                yield return presenter.TakeDamage();
+            }
         }
     }
 }
