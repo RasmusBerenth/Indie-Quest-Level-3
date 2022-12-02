@@ -10,7 +10,7 @@ namespace MonsterQuest
 
         public int savingThrow => _savingThrow;
 
-        public Monster(int hitPoint, string monsterName, int savingThrow, Sprite bodySprite, SizeCategory sizeCategory) : base(hitPoint, monsterName, bodySprite, sizeCategory)
+        public Monster(string monsterName, int hitPoint, int savingThrow, Sprite bodySprite, SizeCategory sizeCategory) : base(hitPoint, monsterName, bodySprite, sizeCategory)
         {
             _savingThrow = savingThrow;
         }
