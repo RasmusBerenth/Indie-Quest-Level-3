@@ -48,7 +48,7 @@ namespace MonsterQuest
             combatPresenter.InitializeParty(gameState);
 
             Monster orc = new Monster("orc", DiceHelper.Roll("2d8+6"), 12, monsterSprites[0], SizeCategory.Medium);
-            Monster mage = new Monster("mage", DiceHelper.Roll("9d8"), 20, monsterSprites[1], SizeCategory.Medium);
+            Monster azer = new Monster("azer", DiceHelper.Roll("9d8"), 20, monsterSprites[1], SizeCategory.Medium);
             Monster troll = new Monster("troll", DiceHelper.Roll("8d10+40"), 18, monsterSprites[2], SizeCategory.Large);
 
             Console.WriteLine($"A party of warriors {gameState.party} descends into the dungeon.");
@@ -60,7 +60,7 @@ namespace MonsterQuest
 
             if (gameState.party.characters.Count > 0)
             {
-                gameState.EnterCombatWithMonster(mage);
+                gameState.EnterCombatWithMonster(azer);
                 combatPresenter.InitializeMonster(gameState);
                 yield return combatManager.Simulate(gameState);
             }
