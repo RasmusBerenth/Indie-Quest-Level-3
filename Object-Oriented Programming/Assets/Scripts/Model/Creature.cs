@@ -22,11 +22,8 @@ namespace MonsterQuest
         public string displayName => _displayName;
 
         public int hitPointsMaximum => _hitPointsMaximum;
-        public int hitPoints
-        {
-            get => _hitPoints;
-            set => _hitPoints = Mathf.Max(0, value);
-        }
+        public int hitPoints => _hitPoints;
+
 
         public float spaceInFeet => _spaceInFeet;
 
@@ -38,10 +35,12 @@ namespace MonsterQuest
 
         public Creature(int hitPointsMaximum, string monsterName, Sprite bodySprite, SizeCategory sizeCategory)
         {
-            hitPoints = hitPointsMaximum;
+            _hitPointsMaximum = hitPointsMaximum;
+            _hitPoints = hitPointsMaximum;
             _displayName = monsterName;
             _bodySprite = bodySprite;
             SizeHelper.spaceInFeetPerSizeCategory.TryGetValue(sizeCategory, out _spaceInFeet);
+            _sizeCategory = sizeCategory;
         }
 
         public void InitializePresenter(CreaturePresenter presenter)

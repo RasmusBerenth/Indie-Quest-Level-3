@@ -9,6 +9,7 @@ namespace MonsterQuest
     {
         private CombatManager combatManager;
         private GameState gameState;
+        private CombatPresenter combatPresenter;
         [SerializeField] private Sprite[] monsterSprites;
         [SerializeField] private Sprite[] characterSprites;
 
@@ -16,12 +17,13 @@ namespace MonsterQuest
         {
             Transform combatTransform = transform.Find("Combat");
             combatManager = combatTransform.GetComponent<CombatManager>();
+            combatPresenter = combatTransform.GetComponent<CombatPresenter>();
         }
 
-        public void Start()
+        public IEnumerator Start()
         {
             NewGame();
-            Simulate();
+            yield return Simulate();
         }
 
         private void NewGame()
@@ -41,8 +43,10 @@ namespace MonsterQuest
             gameState = new GameState(heroParty);
         }
 
-        private void Simulate()
+        private IEnumerator Simulate()
         {
+            combatPresenter.InitializeParty(gameState);
+
             Monster orc = new Monster("orc", DiceHelper.Roll("2d8+6"), 12, monsterSprites[0], SizeCategory.Medium);
             Monster mage = new Monster("mage", DiceHelper.Roll("9d8"), 20, monsterSprites[1], SizeCategory.Medium);
             Monster troll = new Monster("troll", DiceHelper.Roll("8d10+40"), 18, monsterSprites[2], SizeCategory.Large);
@@ -51,18 +55,21 @@ namespace MonsterQuest
 
             //random HP orc (2d8+6) mage (9d8) and troll (8d10+40)
             gameState.EnterCombatWithMonster(orc);
-            CombatManager.Simulate(gameState);
+            combatPresenter.InitializeMonster(gameState);
+            yield return combatManager.Simulate(gameState);
 
             if (gameState.party.characters.Count > 0)
             {
                 gameState.EnterCombatWithMonster(mage);
-                CombatManager.Simulate(gameState);
+                combatPresenter.InitializeMonster(gameState);
+                yield return combatManager.Simulate(gameState);
             }
 
             if (gameState.party.characters.Count > 0)
             {
                 gameState.EnterCombatWithMonster(troll);
-                CombatManager.Simulate(gameState);
+                combatPresenter.InitializeMonster(gameState);
+                yield return combatManager.Simulate(gameState);
             }
 
             if (gameState.party.characters.Count > 0)

@@ -8,7 +8,7 @@ namespace MonsterQuest
 {
     public class CombatManager : MonoBehaviour
     {
-        public static void Simulate(GameState gameState)//List<string> heroes, string monster, int monsterHP, int savingThrowDC
+        public IEnumerator Simulate(GameState gameState) //List<string> heroes, string monster, int monsterHP, int savingThrowDC
         {
             var random = new Random();
             int constitution = 5;
@@ -22,7 +22,8 @@ namespace MonsterQuest
                 {
                     int damage = DiceHelper.Roll("2d6");
 
-                    gameState.combat.monster.hitPoints -= damage;
+                    yield return character.presenter.Attack();
+                    yield return gameState.combat.monster.ReactToDamage(damage);
 
                     if (gameState.combat.monster.hitPoints <= 0)
                     {
@@ -42,20 +43,22 @@ namespace MonsterQuest
 
                 int targetIndex = random.Next(gameState.party.characters.Count);
 
-                Character targetName = gameState.party.characters[targetIndex];
+                Character targetCharacter = gameState.party.characters[targetIndex];
 
-                Console.WriteLine($"The {gameState.combat} made a killing blow aginst {targetName}!");
+                Console.WriteLine($"The {gameState.combat} made a killing blow aginst {targetCharacter}!");
+                yield return gameState.combat.monster.presenter.Attack();
 
                 int savingThrow = DiceHelper.Roll("1d20");
 
                 if (constitution + savingThrow < gameState.combat.monster.savingThrow)
                 {
-                    Console.WriteLine($"{targetName} rolls a {savingThrow} and was killed by the {gameState.combat}!");
-                    gameState.party.characters.Remove(targetName);
+                    Console.WriteLine($"{targetCharacter} rolls a {savingThrow} and was killed by the {gameState.combat}!");
+                    gameState.party.characters.Remove(targetCharacter);
+                    yield return targetCharacter.ReactToDamage(10);
                 }
                 else
                 {
-                    Console.WriteLine($"{targetName} rolls a {savingThrow} and is saved from the attack.");
+                    Console.WriteLine($"{targetCharacter} rolls a {savingThrow} and is saved from the attack.");
                 }
 
             }
