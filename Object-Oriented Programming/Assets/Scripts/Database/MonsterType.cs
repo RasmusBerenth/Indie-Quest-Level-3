@@ -1,0 +1,17 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace MonsterQuest
+{
+    [CreateAssetMenu]
+    public class MonsterType : ScriptableObject
+    {
+        public string displayName;
+        public SizeCategory sizeCategory;
+        public string alignment;
+        public string hitPoint;
+        public ArmorType armorType;
+        public Sprite bodySprite;
+    }
+}
