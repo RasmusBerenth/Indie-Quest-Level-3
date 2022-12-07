@@ -10,7 +10,7 @@ namespace MonsterQuest
         private CombatManager combatManager;
         private GameState gameState;
         private CombatPresenter combatPresenter;
-        [SerializeField] private Sprite[] monsterSprites;
+        [SerializeField] private MonsterType[] monsterTypes;
         [SerializeField] private Sprite[] characterSprites;
 
         private void Awake()
@@ -47,9 +47,9 @@ namespace MonsterQuest
         {
             combatPresenter.InitializeParty(gameState);
 
-            Monster orc = new Monster("orc", DiceHelper.Roll("2d8+6"), 12, monsterSprites[0], SizeCategory.Medium);
-            Monster azer = new Monster("azer", DiceHelper.Roll("9d8"), 20, monsterSprites[1], SizeCategory.Medium);
-            Monster troll = new Monster("troll", DiceHelper.Roll("8d10+40"), 18, monsterSprites[2], SizeCategory.Large);
+            Monster orc = new Monster(monsterTypes[0], 12);
+            Monster azer = new Monster(monsterTypes[1], 20);
+            Monster troll = new Monster(monsterTypes[2], 18);
 
             Console.WriteLine($"A party of warriors {gameState.party} descends into the dungeon.");
 

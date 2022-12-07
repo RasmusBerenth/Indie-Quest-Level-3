@@ -48,6 +48,7 @@ namespace MonsterQuest
                 Console.WriteLine($"The {gameState.combat} made a killing blow aginst {targetCharacter}!");
                 yield return gameState.combat.monster.presenter.Attack();
 
+                //Change between here
                 int savingThrow = DiceHelper.Roll("1d20");
 
                 if (constitution + savingThrow < gameState.combat.monster.savingThrow)
@@ -63,6 +64,8 @@ namespace MonsterQuest
 
             }
             while (gameState.party.characters.Count > 0);
+            //and here
+
 
             if (gameState.combat.monster.hitPoints > 0)
             {

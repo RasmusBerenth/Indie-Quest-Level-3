@@ -10,9 +10,11 @@ namespace MonsterQuest
 
         public int savingThrow => _savingThrow;
 
-        public Monster(string monsterName, int hitPoint, int savingThrow, Sprite bodySprite, SizeCategory sizeCategory) : base(hitPoint, monsterName, bodySprite, sizeCategory)
+        public Monster(MonsterType type, int savingThrow) : base(type.displayName, type.bodySprite, type.sizeCategory)
         {
+            _hitPointsMaximum = DiceHelper.Roll(type.hitPoint);
             _savingThrow = savingThrow;
+            InitializeHitPoint();
         }
 
     }

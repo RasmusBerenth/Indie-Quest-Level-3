@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace MonsterQuest
 {
-    [CreateAssetMenu]
-    public class ArmorType : ItemType
+    public class ItemType : ScriptableObject
     {
-        public ArmorCategory category;
+        public string displayName;
+        public int weight;
     }
 }

@@ -16,5 +16,8 @@ MonoBehaviour:
   sizeCategory: 4
   alignment: Chaotic Evil
   hitPoint: 8d10+40
-  armorType: {fileID: 11400000, guid: 8dc37767616b60446ac389ce0d4883cf, type: 2}
+  armorType: {fileID: 11400000, guid: d1f541424b58fe0479446442eb7115c7, type: 2}
+  weaponTypes:
+  - {fileID: 11400000, guid: 351f64c73269f624b86bc72892444e25, type: 2}
+  - {fileID: 11400000, guid: 3ae02d193a4aaff40a671beaa68733cd, type: 2}
   bodySprite: {fileID: 21300000, guid: f1fa343faea49484d895a671f5ea4a29, type: 3}

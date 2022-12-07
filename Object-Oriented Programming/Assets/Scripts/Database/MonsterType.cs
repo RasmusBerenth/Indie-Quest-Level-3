@@ -12,6 +12,7 @@ namespace MonsterQuest
         public string alignment;
         public string hitPoint;
         public ArmorType armorType;
+        public WeaponType[] weaponTypes;
         public Sprite bodySprite;
     }
 }

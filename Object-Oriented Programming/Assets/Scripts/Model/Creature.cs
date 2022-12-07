@@ -33,14 +33,17 @@ namespace MonsterQuest
 
         public SizeCategory sizeCategory => _sizeCategory;
 
-        public Creature(int hitPointsMaximum, string monsterName, Sprite bodySprite, SizeCategory sizeCategory)
+        public Creature(string monsterName, Sprite bodySprite, SizeCategory sizeCategory)
         {
-            _hitPointsMaximum = hitPointsMaximum;
-            _hitPoints = hitPointsMaximum;
             _displayName = monsterName;
             _bodySprite = bodySprite;
             SizeHelper.spaceInFeetPerSizeCategory.TryGetValue(sizeCategory, out _spaceInFeet);
             _sizeCategory = sizeCategory;
+        }
+
+        protected void InitializeHitPoint()
+        {
+            _hitPoints = _hitPointsMaximum;
         }
 
         public void InitializePresenter(CreaturePresenter presenter)

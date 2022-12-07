@@ -5,8 +5,8 @@ using UnityEngine;
 namespace MonsterQuest
 {
     [CreateAssetMenu]
-    public class ArmorType : ItemType
+    public class WeaponType : ItemType
     {
-        public ArmorCategory category;
+        public string damageRoll;
     }
 }

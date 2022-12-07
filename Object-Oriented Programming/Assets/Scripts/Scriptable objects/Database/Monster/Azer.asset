@@ -16,5 +16,7 @@ MonoBehaviour:
   sizeCategory: 3
   alignment: Lawful Neutral
   hitPoint: 6d8+12
-  armorType: {fileID: 11400000, guid: 8dc37767616b60446ac389ce0d4883cf, type: 2}
+  armorType: {fileID: 11400000, guid: d1f541424b58fe0479446442eb7115c7, type: 2}
+  weaponTypes:
+  - {fileID: 11400000, guid: c4c4cb30a6532724b9a728ee81922916, type: 2}
   bodySprite: {fileID: 21300000, guid: c4e067472c3b8482c974dac88c53187a, type: 3}

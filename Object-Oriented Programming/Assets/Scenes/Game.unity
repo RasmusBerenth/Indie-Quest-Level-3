@@ -674,6 +674,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99171411fd3cc5444967d27fe8b0baba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterTypes:
+  - {fileID: 11400000, guid: 84d53c0e18f65b54e90ed6b6bf477b59, type: 2}
+  - {fileID: 11400000, guid: bbd2832afca298341a569c6fb387820f, type: 2}
+  - {fileID: 11400000, guid: 63f182ef689de3640ad6c1cabc31276d, type: 2}
   monsterSprites:
   - {fileID: 21300000, guid: 19e0e065e541e48ae99ff4998c0ee5db, type: 3}
   - {fileID: 21300000, guid: c4e067472c3b8482c974dac88c53187a, type: 3}

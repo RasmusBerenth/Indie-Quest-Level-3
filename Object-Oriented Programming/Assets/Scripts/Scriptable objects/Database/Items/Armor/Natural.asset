@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18d4ed5bd23bc1c458b0a0cc81754a63, type: 3}
-  m_Name: Hide
+  m_Name: Natural
   m_EditorClassIdentifier: 
-  displayName: Hide
-  weight: 12
-  category: 1
+  displayName: Natural
+  weight: 0
+  category: 0

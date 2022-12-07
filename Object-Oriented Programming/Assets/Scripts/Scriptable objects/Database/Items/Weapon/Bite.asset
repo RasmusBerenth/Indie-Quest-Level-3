@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18d4ed5bd23bc1c458b0a0cc81754a63, type: 3}
-  m_Name: Hide
+  m_Script: {fileID: 11500000, guid: 2facb10cda62e5c4c913462696cc8c76, type: 3}
+  m_Name: Bite
   m_EditorClassIdentifier: 
-  displayName: Hide
-  weight: 12
-  category: 1
+  displayName: Bite
+  weight: 0
+  damageRoll: 1d6+4
