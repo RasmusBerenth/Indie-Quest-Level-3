@@ -11,7 +11,6 @@ namespace MonsterQuest
         public IEnumerator Simulate(GameState gameState) //List<string> heroes, string monster, int monsterHP, int savingThrowDC
         {
             var random = new Random();
-            int constitution = 5;
 
 
             Console.WriteLine($"A {gameState.combat} with {gameState.combat.monster.hitPoints}HP appears");
@@ -20,19 +19,19 @@ namespace MonsterQuest
             {
                 foreach (var character in gameState.party.characters)
                 {
-                    int damage = DiceHelper.Roll("2d6");
+                    int characterDamage = DiceHelper.Roll("2d6");
 
                     yield return character.presenter.Attack();
-                    yield return gameState.combat.monster.ReactToDamage(damage);
+                    yield return gameState.combat.monster.ReactToDamage(characterDamage);
 
                     if (gameState.combat.monster.hitPoints <= 0)
                     {
-                        Console.WriteLine($"{character} hits the {gameState.combat} for {damage} damage. {gameState.combat} has 0 HP left.");
+                        Console.WriteLine($"{character} hits the {gameState.combat} for {characterDamage} damage. {gameState.combat} has 0 HP left.");
                         break;
                     }
                     else
                     {
-                        Console.WriteLine($"{character} hits the {gameState.combat} for {damage} damage. {gameState.combat} has {gameState.combat.monster.hitPoints} HP left.");
+                        Console.WriteLine($"{character} hits the {gameState.combat} for {characterDamage} damage. {gameState.combat} has {gameState.combat.monster.hitPoints} HP left.");
                     }
                 }
 
@@ -45,27 +44,25 @@ namespace MonsterQuest
 
                 Character targetCharacter = gameState.party.characters[targetIndex];
 
-                Console.WriteLine($"The {gameState.combat} made a killing blow aginst {targetCharacter}!");
+                //Get weapon and damage used for monster attack
+                int weaponInUse = random.Next(0, gameState.combat.monster.weaponTypes.Length - 1);
+
+                int monstersDamage = DiceHelper.Roll(gameState.combat.monster.weaponTypes[weaponInUse].damageRoll);
+
                 yield return gameState.combat.monster.presenter.Attack();
+                yield return targetCharacter.ReactToDamage(monstersDamage);
 
-                //Change between here
-                int savingThrow = DiceHelper.Roll("1d20");
-
-                if (constitution + savingThrow < gameState.combat.monster.savingThrow)
+                if (targetCharacter.hitPoints <= 0)
                 {
-                    Console.WriteLine($"{targetCharacter} rolls a {savingThrow} and was killed by the {gameState.combat}!");
+                    Console.WriteLine($"{targetCharacter} was attacked by {gameState.combat} using its {gameState.combat.monster.weaponTypes[weaponInUse].displayName}, dealing {monstersDamage} damage, killing {targetCharacter}!");
                     gameState.party.characters.Remove(targetCharacter);
-                    yield return targetCharacter.ReactToDamage(10);
                 }
                 else
                 {
-                    Console.WriteLine($"{targetCharacter} rolls a {savingThrow} and is saved from the attack.");
+                    Console.WriteLine($"{targetCharacter} was attacked by {gameState.combat} using its {gameState.combat.monster.weaponTypes[weaponInUse].displayName} dealing {monstersDamage} damage.");
                 }
-
             }
             while (gameState.party.characters.Count > 0);
-            //and here
-
 
             if (gameState.combat.monster.hitPoints > 0)
             {

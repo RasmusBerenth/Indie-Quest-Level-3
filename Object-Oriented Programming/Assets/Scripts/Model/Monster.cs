@@ -6,14 +6,13 @@ namespace MonsterQuest
 {
     public class Monster : Creature
     {
-        private int _savingThrow;
+        private WeaponType[] _weaponTypes;
+        public WeaponType[] weaponTypes => _weaponTypes;
 
-        public int savingThrow => _savingThrow;
-
-        public Monster(MonsterType type, int savingThrow) : base(type.displayName, type.bodySprite, type.sizeCategory)
+        public Monster(MonsterType type) : base(type.displayName, type.bodySprite, type.sizeCategory)
         {
             _hitPointsMaximum = DiceHelper.Roll(type.hitPoint);
-            _savingThrow = savingThrow;
+            _weaponTypes = type.weaponTypes;
             InitializeHitPoint();
         }
 

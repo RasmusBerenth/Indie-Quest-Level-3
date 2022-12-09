@@ -47,9 +47,9 @@ namespace MonsterQuest
         {
             combatPresenter.InitializeParty(gameState);
 
-            Monster orc = new Monster(monsterTypes[0], 12);
-            Monster azer = new Monster(monsterTypes[1], 20);
-            Monster troll = new Monster(monsterTypes[2], 18);
+            Monster orc = new Monster(monsterTypes[0]);
+            Monster azer = new Monster(monsterTypes[1]);
+            Monster troll = new Monster(monsterTypes[2]);
 
             Console.WriteLine($"A party of warriors {gameState.party} descends into the dungeon.");
 
