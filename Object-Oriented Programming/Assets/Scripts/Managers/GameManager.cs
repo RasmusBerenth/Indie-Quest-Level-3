@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace MonsterQuest
@@ -22,16 +23,20 @@ namespace MonsterQuest
 
         public IEnumerator Start()
         {
+            yield return Database.Initialize();
             NewGame();
             yield return Simulate();
         }
 
         private void NewGame()
         {
-            Character ken = new Character(10, "Ken", characterSprites[0], SizeCategory.Medium);
-            Character barbie = new Character(10, "Barbie", characterSprites[1], SizeCategory.Medium);
-            Character roland = new Character(10, "Roland", characterSprites[2], SizeCategory.Medium);
-            Character melissa = new Character(10, "Melissa", characterSprites[3], SizeCategory.Medium);
+            WeaponType characterWeapon = (WeaponType)Database.itemTypes.Where(itemType => itemType is WeaponType { weight: > 0 }).Cast<WeaponType>();
+            ArmorType characterArmor = Database.GetItemType<ArmorType>("Studded Leather");
+
+            Character ken = new Character(10, "Ken", characterSprites[0], SizeCategory.Medium, characterWeapon, characterArmor);
+            Character barbie = new Character(10, "Barbie", characterSprites[1], SizeCategory.Medium, characterWeapon, characterArmor);
+            Character roland = new Character(10, "Roland", characterSprites[2], SizeCategory.Medium, characterWeapon, characterArmor);
+            Character melissa = new Character(10, "Melissa", characterSprites[3], SizeCategory.Medium, characterWeapon, characterArmor);
             List<Character> heros = new List<Character>();
             heros.Add(ken);
             heros.Add(barbie);

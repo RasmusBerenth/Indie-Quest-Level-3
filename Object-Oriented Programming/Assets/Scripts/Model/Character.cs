@@ -6,7 +6,7 @@ namespace MonsterQuest
 {
     public class Character : Creature
     {
-        public Character(int hitPointsMaximum, string displayName, Sprite bodySprite, SizeCategory sizeCategory) : base(displayName, bodySprite, sizeCategory)
+        public Character(int hitPointsMaximum, string displayName, Sprite bodySprite, SizeCategory sizeCategory, WeaponType weaponType, ArmorType armorType) : base(displayName, bodySprite, sizeCategory)
         {
             _hitPointsMaximum = hitPointsMaximum;
             _displayName = displayName;
