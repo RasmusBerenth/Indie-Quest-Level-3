@@ -19,14 +19,14 @@ namespace MonsterQuest
             {
                 foreach (var character in gameState.party.characters)
                 {
-                    int characterDamage = DiceHelper.Roll("2d6");
+                    int characterDamage = DiceHelper.Roll(character.weapon.damageRoll);
 
                     yield return character.presenter.Attack();
                     yield return gameState.combat.monster.ReactToDamage(characterDamage);
 
                     if (gameState.combat.monster.hitPoints <= 0)
                     {
-                        Console.WriteLine($"{character} hits the {gameState.combat} for {characterDamage} damage. {gameState.combat} has 0 HP left.");
+                        Console.WriteLine($"{character} hits the {gameState.combat} with thier {character.weapon} for {characterDamage} damage. {gameState.combat} has 0 HP left.");
                         break;
                     }
                     else
