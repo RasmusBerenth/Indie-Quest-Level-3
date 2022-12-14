@@ -65,5 +65,12 @@ namespace MonsterQuest
                 yield return presenter.TakeDamage();
             }
         }
+
+        public override string ToString()
+        {
+            return displayName;
+        }
+
+
     }
 }

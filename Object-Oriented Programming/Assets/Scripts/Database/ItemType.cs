@@ -8,5 +8,10 @@ namespace MonsterQuest
     {
         public string displayName;
         public int weight;
+
+        public override string ToString()
+        {
+            return displayName;
+        }
     }
 }

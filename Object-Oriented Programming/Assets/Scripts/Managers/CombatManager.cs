@@ -11,9 +11,9 @@ namespace MonsterQuest
         public IEnumerator Simulate(GameState gameState) //List<string> heroes, string monster, int monsterHP, int savingThrowDC
         {
             var random = new Random();
+            Monster monster = gameState.combat.monster;
 
-
-            Console.WriteLine($"A {gameState.combat} with {gameState.combat.monster.hitPoints}HP appears");
+            Console.WriteLine($"A {monster} with {monster.hitPoints}HP appears");
 
             do
             {
@@ -22,20 +22,20 @@ namespace MonsterQuest
                     int characterDamage = DiceHelper.Roll(character.weapon.damageRoll);
 
                     yield return character.presenter.Attack();
-                    yield return gameState.combat.monster.ReactToDamage(characterDamage);
+                    yield return monster.ReactToDamage(characterDamage);
 
-                    if (gameState.combat.monster.hitPoints <= 0)
+                    if (monster.hitPoints <= 0)
                     {
-                        Console.WriteLine($"{character} hits the {gameState.combat} with thier {character.weapon} for {characterDamage} damage. {gameState.combat} has 0 HP left.");
+                        Console.WriteLine($"{character} hits the {monster} with thier {character.weapon.displayName} for {characterDamage} damage. {monster} has 0 HP left.");
                         break;
                     }
                     else
                     {
-                        Console.WriteLine($"{character} hits the {gameState.combat} for {characterDamage} damage. {gameState.combat} has {gameState.combat.monster.hitPoints} HP left.");
+                        Console.WriteLine($"{character} hits the {monster} with thier {character.weapon.displayName} for {characterDamage} damage. {monster} has {monster.hitPoints} HP left.");
                     }
                 }
 
-                if (gameState.combat.monster.hitPoints <= 0)
+                if (monster.hitPoints <= 0)
                 {
                     break;
                 }
@@ -45,32 +45,33 @@ namespace MonsterQuest
                 Character targetCharacter = gameState.party.characters[targetIndex];
 
                 //Get weapon and damage used for monster attack
-                int weaponInUse = random.Next(0, gameState.combat.monster.weaponTypes.Length - 1);
+                int weaponInUseIndex = random.Next(monster.monsterType.weaponTypes.Length);
+                WeaponType weaponInUse = monster.monsterType.weaponTypes[weaponInUseIndex];
 
-                int monstersDamage = DiceHelper.Roll(gameState.combat.monster.weaponTypes[weaponInUse].damageRoll);
+                int monstersDamage = DiceHelper.Roll(weaponInUse.damageRoll);
 
-                yield return gameState.combat.monster.presenter.Attack();
+                yield return monster.presenter.Attack();
                 yield return targetCharacter.ReactToDamage(monstersDamage);
 
                 if (targetCharacter.hitPoints <= 0)
                 {
-                    Console.WriteLine($"{targetCharacter} was attacked by {gameState.combat} using its {gameState.combat.monster.weaponTypes[weaponInUse].displayName}, dealing {monstersDamage} damage, killing {targetCharacter}!");
+                    Console.WriteLine($"{targetCharacter} was attacked by {monster} using its {weaponInUse}, dealing {monstersDamage} damage, killing {targetCharacter}!");
                     gameState.party.characters.Remove(targetCharacter);
                 }
                 else
                 {
-                    Console.WriteLine($"{targetCharacter} was attacked by {gameState.combat} using its {gameState.combat.monster.weaponTypes[weaponInUse].displayName} dealing {monstersDamage} damage.");
+                    Console.WriteLine($"{targetCharacter} was attacked by {monster} using its {weaponInUse} dealing {monstersDamage} damage.");
                 }
             }
             while (gameState.party.characters.Count > 0);
 
-            if (gameState.combat.monster.hitPoints > 0)
+            if (monster.hitPoints > 0)
             {
-                Console.WriteLine($"Your party has died and the {gameState.combat} will ravish the lands!");
+                Console.WriteLine($"Your party has died and the {monster} will ravish the lands!");
             }
             else
             {
-                Console.WriteLine($"The {gameState.combat} collapses and the heroes celebrate their victory!");
+                Console.WriteLine($"The {monster} collapses and the heroes celebrate their victory!");
             }
         }
     }

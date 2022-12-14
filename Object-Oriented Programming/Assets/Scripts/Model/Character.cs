@@ -21,9 +21,6 @@ namespace MonsterQuest
             InitializeHitPoint();
         }
 
-        public override string ToString()
-        {
-            return _displayName;
-        }
+
     }
 }
