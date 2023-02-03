@@ -49,7 +49,7 @@ namespace MonsterQuest
 
         private IEnumerator Simulate()
         {
-            combatPresenter.InitializeParty(gameState);
+            yield return combatPresenter.InitializeParty(gameState);
 
             Monster kobold = new Monster(monsterTypes[0]);
             Monster magmin = new Monster(monsterTypes[1]);
@@ -61,7 +61,7 @@ namespace MonsterQuest
 
             //random HP orc (2d8+6) mage (9d8) and troll (8d10+40)
             gameState.EnterCombatWithMonster(kobold);
-            combatPresenter.InitializeMonster(gameState);
+            yield return combatPresenter.InitializeMonster(gameState);
             yield return combatManager.Simulate(gameState);
 
             if (gameState.party.characters.Count > 0)
