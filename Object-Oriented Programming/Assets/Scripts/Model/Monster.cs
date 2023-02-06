@@ -6,6 +6,7 @@ namespace MonsterQuest
 {
     public class Monster : Creature
     {
+        private static bool[] _emptyDeathSavingThrows = new bool[0];
         private MonsterType _monsterType;
         public MonsterType monsterType => _monsterType;
 
@@ -13,6 +14,7 @@ namespace MonsterQuest
         {
             _hitPointsMaximum = DiceHelper.Roll(type.hitPoint);
             _monsterType = type;
+            _deathSavingThrows = _emptyDeathSavingThrows;
             InitializeHitPoint();
         }
 

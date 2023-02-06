@@ -28,7 +28,7 @@ namespace MonsterQuest
         public SizeCategory sizeCategory => _sizeCategory;
 
         //Polymorphism mission 1 properties between here
-        private IEnumerable<bool> _deathSavingThrows;
+        protected IEnumerable<bool> _deathSavingThrows;
         public IEnumerable<bool> deathSavingThrows => _deathSavingThrows;
 
         private int _deathSavingThrowSucces;
@@ -38,16 +38,17 @@ namespace MonsterQuest
         public int deathSavingThrowFailures => _deathSavingThrowFailures;
 
         protected LifeStatus _lifeStatus;
-        public LifeStatus LifeStatus => _lifeStatus;
+        public LifeStatus lifeStatus => _lifeStatus;
         //and here
 
-        public Creature(string monsterName, Sprite bodySprite, SizeCategory sizeCategory, LifeStatus lifeStatus)
+        public Creature(string monsterName, Sprite bodySprite, SizeCategory sizeCategory)
         {
             _displayName = monsterName;
             _bodySprite = bodySprite;
             SizeHelper.spaceInFeetPerSizeCategory.TryGetValue(sizeCategory, out _spaceInFeet);
             _sizeCategory = sizeCategory;
-            _lifeStatus = lifeStatus;
+            _lifeStatus = LifeStatus.Conscious;
+
         }
 
         protected void InitializeHitPoint()

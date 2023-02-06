@@ -53,7 +53,7 @@ namespace MonsterQuest
                 yield return monster.presenter.Attack();
                 yield return targetCharacter.ReactToDamage(monstersDamage);
 
-                if (targetCharacter.hitPoints <= 0)
+                if (targetCharacter.hitPoints <= 0) //Use: targetCharacter.lifeStatus == LifeStatus.Conscious (or 0)
                 {
                     Console.WriteLine($"{targetCharacter} was attacked by {monster} using its {weaponInUse}, dealing {monstersDamage} damage, killing {targetCharacter}!");
                     gameState.party.characters.Remove(targetCharacter);

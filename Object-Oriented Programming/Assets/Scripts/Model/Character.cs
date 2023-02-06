@@ -6,6 +6,8 @@ namespace MonsterQuest
 {
     public class Character : Creature
     {
+        private static List<bool> _deathSavingThrowsList = new List<bool>();
+
         private WeaponType _weapon;
         private ArmorType _armor;
 
@@ -18,6 +20,7 @@ namespace MonsterQuest
             _displayName = displayName;
             _weapon = weaponType;
             _armor = armorType;
+            _deathSavingThrows = _deathSavingThrowsList;
             InitializeHitPoint();
         }
 
