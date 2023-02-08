@@ -24,6 +24,27 @@ namespace MonsterQuest
             InitializeHitPoint();
         }
 
+        public override IEnumerator ReactToDamage(int damageAmount)
+        {
+            _hitPoints = Mathf.Max(0, _hitPoints - damageAmount);
+            bool instantDeath;
+
+            if (_hitPoints <= 0 - _hitPointsMaximum)
+            {
+                instantDeath = true;
+            }
+            else
+            {
+                instantDeath = false;
+            }
+
+            yield return presenter.TakeDamage(instantDeath);
+            if (hitPoints <= 0)
+            {
+                yield return presenter.Die();
+            }
+        }
+
 
     }
 }
