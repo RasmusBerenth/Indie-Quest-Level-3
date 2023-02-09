@@ -32,6 +32,7 @@ namespace MonsterQuest
             if (_hitPoints <= 0 - _hitPointsMaximum)
             {
                 instantDeath = true;
+                _lifeStatus = LifeStatus.Dead;
             }
             else
             {
@@ -39,9 +40,24 @@ namespace MonsterQuest
             }
 
             yield return presenter.TakeDamage(instantDeath);
+
             if (hitPoints <= 0)
             {
-                yield return presenter.Die();
+                _lifeStatus = LifeStatus.UnconsciousUnstable;
+                //_deathSavingThrowsList.Add(presenter.PerformDeathSavingThrow(/*bool, int?*/));
+
+
+                /* if(_deathSavingThrowsList contains 3 true)
+                 * {
+                 * life status = unconsicous stable
+                 * }
+                 
+                if(_deathSavingThrowsList contains 3 false)
+                {
+                life status = dead
+                }
+                 */
+                //yield return presenter.Die();
             }
         }
 
