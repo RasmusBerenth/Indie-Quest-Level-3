@@ -8,7 +8,7 @@ namespace MonsterQuest
 {
     public class CombatManager : MonoBehaviour
     {
-        public IEnumerator Simulate(GameState gameState) //List<string> heroes, string monster, int monsterHP, int savingThrowDC
+        public IEnumerator Simulate(GameState gameState)
         {
             var random = new Random();
             Monster monster = gameState.combat.monster;
@@ -19,23 +19,30 @@ namespace MonsterQuest
             {
                 foreach (var character in gameState.party.characters)
                 {
+                    if (character.lifeStatus != LifeStatus.Conscious)
+                    {
+                        continue;
+                    }
+
                     int characterDamage = DiceHelper.Roll(character.weapon.damageRoll);
 
                     yield return character.presenter.Attack();
                     yield return monster.ReactToDamage(characterDamage);
 
-                    if (monster.hitPoints <= 0)
+                    Console.Write($"{character} hits the {monster} with thier {character.weapon.displayName} for {characterDamage} damage. ");
+
+                    if (monster.lifeStatus == LifeStatus.Dead)
                     {
-                        Console.WriteLine($"{character} hits the {monster} with thier {character.weapon.displayName} for {characterDamage} damage. {monster} has 0 HP left.");
+                        Console.WriteLine($"{monster} has died.");
                         break;
                     }
                     else
                     {
-                        Console.WriteLine($"{character} hits the {monster} with thier {character.weapon.displayName} for {characterDamage} damage. {monster} has {monster.hitPoints} HP left.");
+                        Console.WriteLine($"{monster} has {monster.hitPoints} HP left.");
                     }
                 }
 
-                if (monster.hitPoints <= 0)
+                if (monster.lifeStatus == LifeStatus.Dead)
                 {
                     break;
                 }
@@ -53,7 +60,7 @@ namespace MonsterQuest
                 yield return monster.presenter.Attack();
                 yield return targetCharacter.ReactToDamage(monstersDamage);
 
-                if (targetCharacter.hitPoints <= 0)
+                if (targetCharacter.lifeStatus == LifeStatus.Dead)
                 {
                     Console.WriteLine($"{targetCharacter} was attacked by {monster} using its {weaponInUse}, dealing {monstersDamage} damage, killing {targetCharacter}!");
                     gameState.party.characters.Remove(targetCharacter);
@@ -65,7 +72,7 @@ namespace MonsterQuest
             }
             while (gameState.party.characters.Count > 0);
 
-            if (monster.hitPoints > 0)
+            if (monster.lifeStatus == LifeStatus.Conscious)
             {
                 Console.WriteLine($"Your party has died and the {monster} will ravish the lands!");
             }

@@ -51,44 +51,18 @@ namespace MonsterQuest
         {
             yield return combatPresenter.InitializeParty(gameState);
 
-            Monster kobold = new Monster(monsterTypes[0]);
-            Monster magmin = new Monster(monsterTypes[1]);
-            Monster azer = new Monster(monsterTypes[2]);
-            Monster troll = new Monster(monsterTypes[3]);
-            Monster roc = new Monster(monsterTypes[4]);
-
             Console.WriteLine($"A party of warriors {gameState.party} descends into the dungeon.");
 
-            //random HP orc (2d8+6) mage (9d8) and troll (8d10+40)
-            gameState.EnterCombatWithMonster(kobold);
-            yield return combatPresenter.InitializeMonster(gameState);
-            yield return combatManager.Simulate(gameState);
-
-            if (gameState.party.characters.Count > 0)
+            foreach (MonsterType monsterType in monsterTypes)
             {
-                gameState.EnterCombatWithMonster(magmin);
-                combatPresenter.InitializeMonster(gameState);
-                yield return combatManager.Simulate(gameState);
-            }
+                if (gameState.party.characters.Count == 0)
+                {
+                    break;
+                }
 
-            if (gameState.party.characters.Count > 0)
-            {
-                gameState.EnterCombatWithMonster(azer);
-                combatPresenter.InitializeMonster(gameState);
-                yield return combatManager.Simulate(gameState);
-            }
-
-            if (gameState.party.characters.Count > 0)
-            {
-                gameState.EnterCombatWithMonster(troll);
-                combatPresenter.InitializeMonster(gameState);
-                yield return combatManager.Simulate(gameState);
-            }
-
-            if (gameState.party.characters.Count > 0)
-            {
-                gameState.EnterCombatWithMonster(roc);
-                combatPresenter.InitializeMonster(gameState);
+                Monster monster = new Monster(monsterType);
+                gameState.EnterCombatWithMonster(monster);
+                yield return combatPresenter.InitializeMonster(gameState);
                 yield return combatManager.Simulate(gameState);
             }
 

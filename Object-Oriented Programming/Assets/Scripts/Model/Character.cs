@@ -6,7 +6,7 @@ namespace MonsterQuest
 {
     public class Character : Creature
     {
-        private static List<bool> _deathSavingThrowsList = new List<bool>();
+        private List<bool> _deathSavingThrowsList = new List<bool>();
 
         private WeaponType _weapon;
         private ArmorType _armor;
@@ -26,41 +26,54 @@ namespace MonsterQuest
 
         public override IEnumerator ReactToDamage(int damageAmount)
         {
-            _hitPoints = Mathf.Max(0, _hitPoints - damageAmount);
-            bool instantDeath;
+            _hitPoints -= damageAmount;
+            bool instantDeath = _hitPoints <= -_hitPointsMaximum;
 
-            if (_hitPoints <= 0 - _hitPointsMaximum)
+            if (_hitPoints < 0)
             {
-                instantDeath = true;
-                _lifeStatus = LifeStatus.Dead;
-            }
-            else
-            {
-                instantDeath = false;
+                _hitPoints = 0;
             }
 
             yield return presenter.TakeDamage(instantDeath);
-
-            if (hitPoints <= 0)
+            if (instantDeath)
             {
-                _lifeStatus = LifeStatus.UnconsciousUnstable;
-                //_deathSavingThrowsList.Add(presenter.PerformDeathSavingThrow(/*bool, int?*/));
-
-
-                /* if(_deathSavingThrowsList contains 3 true)
-                 * {
-                 * life status = unconsicous stable
-                 * }
-                 
-                if(_deathSavingThrowsList contains 3 false)
+                lifeStatus = LifeStatus.Dead;
+                yield return presenter.Die();
+            }
+            else if (hitPoints == 0)
+            {
+                if (lifeStatus == LifeStatus.Conscious)
                 {
-                life status = dead
+                    lifeStatus = LifeStatus.UnconsciousUnstable;
                 }
-                 */
-                //yield return presenter.Die();
+                else
+                {
+                    lifeStatus = LifeStatus.UnconsciousUnstable;
+                    yield return AddDeathSavingThrow(false);
+
+                    if (deathSavingThrowFailures >= 3)
+                    {
+                        lifeStatus = LifeStatus.Dead;
+                        yield return presenter.Die();
+                    }
+                }
             }
         }
 
+        private IEnumerator AddDeathSavingThrow(bool succes)
+        {
+            yield return presenter.PerformDeathSavingThrow(succes);
 
+            if (succes)
+            {
+                _deathSavingThrowSucces++;
+            }
+            else
+            {
+                _deathSavingThrowFailures++;
+            }
+
+            _deathSavingThrowsList.Add(succes);
+        }
     }
 }

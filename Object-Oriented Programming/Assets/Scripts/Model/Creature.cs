@@ -27,19 +27,25 @@ namespace MonsterQuest
         protected SizeCategory _sizeCategory;
         public SizeCategory sizeCategory => _sizeCategory;
 
-        //Polymorphism mission 1 properties between here
         protected IEnumerable<bool> _deathSavingThrows;
         public IEnumerable<bool> deathSavingThrows => _deathSavingThrows;
 
-        private int _deathSavingThrowSucces;
+        protected int _deathSavingThrowSucces;
         public int deathSavingThrowSucces => _deathSavingThrowSucces;
 
-        private int _deathSavingThrowFailures;
+        protected int _deathSavingThrowFailures;
         public int deathSavingThrowFailures => _deathSavingThrowFailures;
 
         protected LifeStatus _lifeStatus;
-        public LifeStatus lifeStatus => _lifeStatus;
-        //and here
+        public LifeStatus lifeStatus
+        {
+            get => _lifeStatus;
+            protected set
+            {
+                _lifeStatus = value;
+                presenter.UpdateStableStatus();
+            }
+        }
 
         public Creature(string monsterName, Sprite bodySprite, SizeCategory sizeCategory)
         {
@@ -66,8 +72,9 @@ namespace MonsterQuest
             _hitPoints = Mathf.Max(0, _hitPoints - damageAmount);
             yield return presenter.TakeDamage();
 
-            if (hitPoints <= 0)
+            if (hitPoints == 0)
             {
+                lifeStatus = LifeStatus.Dead;
                 yield return presenter.Die();
             }
         }
