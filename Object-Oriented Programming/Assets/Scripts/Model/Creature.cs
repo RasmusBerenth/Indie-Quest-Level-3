@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MonsterQuest
 {
-    public class Creature
+    public abstract class Creature
     {
         protected string _displayName;
         public string displayName => _displayName;

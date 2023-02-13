@@ -6,7 +6,7 @@ namespace MonsterQuest
 {
     public class Monster : Creature
     {
-        private static bool[] _emptyDeathSavingThrows = new bool[0];
+        private static readonly bool[] _emptyDeathSavingThrows = new bool[0];
         private MonsterType _monsterType;
         public MonsterType monsterType => _monsterType;
 
