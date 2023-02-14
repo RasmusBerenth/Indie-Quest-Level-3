@@ -10,11 +10,12 @@ namespace MonsterQuest
         private MonsterType _monsterType;
         public MonsterType monsterType => _monsterType;
 
+        public override IEnumerable<bool> deathSavingThrows => _emptyDeathSavingThrows;
+
         public Monster(MonsterType type) : base(type.displayName, type.bodySprite, type.sizeCategory)
         {
             _hitPointsMaximum = DiceHelper.Roll(type.hitPoint);
             _monsterType = type;
-            _deathSavingThrows = _emptyDeathSavingThrows;
             InitializeHitPoint();
         }
 

@@ -27,8 +27,7 @@ namespace MonsterQuest
         protected SizeCategory _sizeCategory;
         public SizeCategory sizeCategory => _sizeCategory;
 
-        protected IEnumerable<bool> _deathSavingThrows;
-        public IEnumerable<bool> deathSavingThrows => _deathSavingThrows;
+        public abstract IEnumerable<bool> deathSavingThrows { get; }
 
         protected int _deathSavingThrowSucces;
         public int deathSavingThrowSucces => _deathSavingThrowSucces;
@@ -46,6 +45,20 @@ namespace MonsterQuest
                 presenter.UpdateStableStatus();
             }
         }
+
+        //Mission 3 here
+        protected int _armorClass;
+        public int armorClass
+        {
+            get => _armorClass;
+            protected set
+            {
+                _armorClass = value;
+            }
+        }
+
+
+        // to here
 
         public Creature(string monsterName, Sprite bodySprite, SizeCategory sizeCategory)
         {

@@ -14,13 +14,14 @@ namespace MonsterQuest
         public WeaponType weapon => _weapon;
         public ArmorType armor => _armor;
 
+        public override IEnumerable<bool> deathSavingThrows => _deathSavingThrowsList;
+
         public Character(int hitPointsMaximum, string displayName, Sprite bodySprite, SizeCategory sizeCategory, WeaponType weaponType, ArmorType armorType) : base(displayName, bodySprite, sizeCategory)
         {
             _hitPointsMaximum = hitPointsMaximum;
             _displayName = displayName;
             _weapon = weaponType;
             _armor = armorType;
-            _deathSavingThrows = _deathSavingThrowsList;
             InitializeHitPoint();
         }
 
