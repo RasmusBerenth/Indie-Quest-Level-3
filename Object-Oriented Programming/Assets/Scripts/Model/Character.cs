@@ -16,6 +16,8 @@ namespace MonsterQuest
 
         public override IEnumerable<bool> deathSavingThrows => _deathSavingThrowsList;
 
+
+
         public Character(int hitPointsMaximum, string displayName, Sprite bodySprite, SizeCategory sizeCategory, WeaponType weaponType, ArmorType armorType) : base(displayName, bodySprite, sizeCategory)
         {
             _hitPointsMaximum = hitPointsMaximum;

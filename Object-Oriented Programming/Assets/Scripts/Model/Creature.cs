@@ -46,7 +46,6 @@ namespace MonsterQuest
             }
         }
 
-        //Mission 3 here
         protected int _armorClass;
         public int armorClass
         {
@@ -56,9 +55,6 @@ namespace MonsterQuest
                 _armorClass = value;
             }
         }
-
-
-        // to here
 
         public Creature(string monsterName, Sprite bodySprite, SizeCategory sizeCategory)
         {
