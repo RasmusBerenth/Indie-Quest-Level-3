@@ -63,7 +63,6 @@ namespace MonsterQuest
             SizeHelper.spaceInFeetPerSizeCategory.TryGetValue(sizeCategory, out _spaceInFeet);
             _sizeCategory = sizeCategory;
             _lifeStatus = LifeStatus.Conscious;
-
         }
 
         protected void InitializeHitPoint()
