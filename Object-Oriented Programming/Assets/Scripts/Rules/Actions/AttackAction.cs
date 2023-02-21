@@ -6,7 +6,7 @@ namespace MonsterQuest
 {
     public class AttackAction
     {
-        public AttackAction()
+        public AttackAction(Creature attacker, Creature target, WeaponType weapon)
         {
 
         }
