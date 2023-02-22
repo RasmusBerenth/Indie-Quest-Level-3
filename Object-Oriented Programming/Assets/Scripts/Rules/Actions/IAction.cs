@@ -6,6 +6,6 @@ namespace MonsterQuest
 {
     public interface IAction
     {
-        public IEnumerator Execute();
+        IEnumerator Execute();
     }
 }
