@@ -16,6 +16,8 @@ namespace MonsterQuest
 
         public override IEnumerable<bool> deathSavingThrows => _deathSavingThrowsList;
 
+        public override int armorClass => armor.armorClass;
+
         public Character(int hitPointsMaximum, string displayName, Sprite bodySprite, SizeCategory sizeCategory, WeaponType weaponType, ArmorType armorType) : base(displayName, bodySprite, sizeCategory)
         {
             _hitPointsMaximum = hitPointsMaximum;
@@ -25,19 +27,12 @@ namespace MonsterQuest
             InitializeHitPoint();
         }
 
-        public override IEnumerator ReactToDamage(int damageAmount)
+        public override IEnumerator ReactToDamage(int damageAmount, bool wasCriticalHit)
         {
             _hitPoints -= damageAmount;
 
+
             bool instantDeath = _hitPoints <= -_hitPointsMaximum;
-            bool wasCriticalHit = false;
-
-            int i = 1;
-
-            if (wasCriticalHit == true)
-            {
-                i = 0;
-            }
 
             if (_hitPoints < 0)
             {
@@ -59,11 +54,10 @@ namespace MonsterQuest
                 else
                 {
                     lifeStatus = LifeStatus.UnconsciousUnstable;
-
-                    while (i < 2)
+                    int amountOfFails = wasCriticalHit ? 2 : 1;
+                    for (int i = 0; i < amountOfFails; i++)
                     {
                         yield return AddDeathSavingThrow(false);
-                        i++;
                     }
 
                     if (deathSavingThrowFailures >= 3)
@@ -89,6 +83,11 @@ namespace MonsterQuest
             }
 
             _deathSavingThrowsList.Add(succes);
+        }
+
+        public override IAction TakeTurn(GameState gameState)
+        {
+            return base.TakeTurn(gameState);
         }
     }
 }

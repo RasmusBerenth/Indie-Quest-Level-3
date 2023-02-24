@@ -12,6 +12,8 @@ namespace MonsterQuest
 
         public override IEnumerable<bool> deathSavingThrows => _emptyDeathSavingThrows;
 
+        public override int armorClass => monsterType.armorClass;
+
         public Monster(MonsterType type) : base(type.displayName, type.bodySprite, type.sizeCategory)
         {
             _hitPointsMaximum = DiceHelper.Roll(type.hitPoint);
@@ -19,5 +21,9 @@ namespace MonsterQuest
             InitializeHitPoint();
         }
 
+        public override IAction TakeTurn(GameState gameState)
+        {
+            return base.TakeTurn(gameState);
+        }
     }
 }

@@ -4,58 +4,70 @@ using UnityEngine;
 
 namespace MonsterQuest
 {
-    public class AttackAction //: IAction
+    public class AttackAction : IAction
     {
-        private Creature _attackingCreature;
-        public Creature attackingCreature => _attackingCreature;
+        private Creature _attacker;
+        public Creature attacker => _attacker;
 
-        private Creature _targetCreature;
-        public Creature targetCreature => _targetCreature;
+        private Creature _target;
+        public Creature target => _target;
 
-        private WeaponType _usedWeapon;
-        public WeaponType usedWeapon => _usedWeapon;
+        private WeaponType _weapon;
+        public WeaponType weapon => _weapon;
+
+
 
         public AttackAction(Creature attacker, Creature target, WeaponType weapon)
         {
-            _attackingCreature = attacker;
-            _targetCreature = target;
-            _usedWeapon = weapon;
+            _attacker = attacker;
+            _target = target;
+            _weapon = weapon;
         }
 
-        //public IEnumerator Execute()
-        //{
-        //    //yield return FaceDiraction();
-        //    //yield return Attack();
+        public IEnumerator Execute()
+        {
+            yield return attacker.presenter.FaceCreature(target);
+            yield return attacker.presenter.Attack();
 
-        //    if (_targetCreature.lifeStatus == LifeStatus.Conscious)
-        //    {
-        //        //Preform attack roll
-        //        /*if(attackRoll >= target armor class)
-        //        {
-        //            if(attackRoll == 20)
-        //            {
-        //            bool critical hit = true
-        //            }
-        //            else if(attackRoll == 1)
-        //            {
-        //            garantied miss
-        //            Console: attacker missed the target
-        //            }
+            bool criticalHit = false;
+            int damageAmount = 0;
 
-        //        hit target with weapon, twice if critical hit = true
-        //        Console: hit message, damage amount
-        //        ReactToDamage(int damage amount,bool critical hit)
-        //        }
-        //        else
-        //        {
-        //        Console: attacker missed the target
-        //        }
-        //        */
-        //    }
-        //    else
-        //    {
-        //        //Auto Critical hit
-        //    }
-        //}
+            if (target.lifeStatus == LifeStatus.Conscious)
+            {
+                int attackRoll = DiceHelper.Roll("d20");
+
+                if (attackRoll == 1)
+                {
+                    attackRoll = 0;
+                    Console.WriteLine($"{attacker} rolled a {attackRoll} and missed {target}!");
+                }
+                else if (attackRoll == 20)
+                {
+                    criticalHit = true;
+                    attackRoll = target.armorClass;
+                }
+                else if (attackRoll >= target.armorClass)
+                {
+                    damageAmount = DiceHelper.Roll(weapon.damageRoll);
+
+                    Console.WriteLine($"{attacker} rolled a {attackRoll} and hit {target}!");
+                }
+                else
+                {
+                    Console.WriteLine($"{attacker} rolled a {attackRoll} and missed {target}!");
+                }
+            }
+            else
+            {
+                criticalHit = true;
+            }
+
+            if (criticalHit == true)
+            {
+                damageAmount += DiceHelper.Roll(weapon.damageRoll);
+            }
+
+            target.ReactToDamage(damageAmount, criticalHit);
+        }
     }
 }

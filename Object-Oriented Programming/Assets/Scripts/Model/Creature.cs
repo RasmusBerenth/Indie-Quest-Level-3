@@ -46,15 +46,7 @@ namespace MonsterQuest
             }
         }
 
-        protected int _armorClass;
-        public int armorClass
-        {
-            get => _armorClass;
-            protected set
-            {
-                _armorClass = value;
-            }
-        }
+        public abstract int armorClass { get; }
 
         public Creature(string monsterName, Sprite bodySprite, SizeCategory sizeCategory)
         {
@@ -75,9 +67,10 @@ namespace MonsterQuest
             _presenter = presenter;
         }
 
-        public virtual IEnumerator ReactToDamage(int damageAmount)
+        public virtual IEnumerator ReactToDamage(int damageAmount, bool wasCriticalHit)
         {
             _hitPoints = Mathf.Max(0, _hitPoints - damageAmount);
+
             yield return presenter.TakeDamage();
 
             if (hitPoints == 0)
@@ -87,11 +80,14 @@ namespace MonsterQuest
             }
         }
 
+        public virtual IAction TakeTurn(GameState gameState)
+        {
+
+        }
+
         public override string ToString()
         {
             return displayName;
         }
-
-
     }
 }
