@@ -38,36 +38,38 @@ namespace MonsterQuest
 
                 if (attackRoll == 1)
                 {
-                    attackRoll = 0;
-                    Console.WriteLine($"{attacker} rolled a {attackRoll} and missed {target}!");
+                    Console.WriteLine($"{attacker} rolled a 1 and missed {target}!");
+                    yield break;
                 }
                 else if (attackRoll == 20)
                 {
                     criticalHit = true;
-                    attackRoll = target.armorClass;
+                    Console.Write($"{attacker} rolled a 20 and landed a critical hit on {target}!");
                 }
                 else if (attackRoll >= target.armorClass)
                 {
-                    damageAmount = DiceHelper.Roll(weapon.damageRoll);
-
-                    Console.WriteLine($"{attacker} rolled a {attackRoll} and hit {target}!");
+                    Console.Write($"{attacker} rolled a {attackRoll} and hit {target}!");
                 }
                 else
                 {
                     Console.WriteLine($"{attacker} rolled a {attackRoll} and missed {target}!");
+                    yield break;
                 }
+
             }
             else
             {
                 criticalHit = true;
             }
 
-            if (criticalHit == true)
+            int amountOfDamageRolls = criticalHit ? 2 : 1;
+            for (int i = 0; i < amountOfDamageRolls; i++)
             {
-                damageAmount += DiceHelper.Roll(weapon.damageRoll);
+                damageAmount = DiceHelper.Roll(weapon.damageRoll);
             }
+            Console.WriteLine($" Dealing {damageAmount} points of damage using their {weapon}.");
 
-            target.ReactToDamage(damageAmount, criticalHit);
+            yield return target.ReactToDamage(damageAmount, criticalHit);
         }
     }
 }

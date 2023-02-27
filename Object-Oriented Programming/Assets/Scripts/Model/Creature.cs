@@ -78,12 +78,11 @@ namespace MonsterQuest
                 lifeStatus = LifeStatus.Dead;
                 yield return presenter.Die();
             }
+
+            Console.WriteLine($"{this} has {_hitPoints} hit points.");
         }
 
-        public virtual IAction TakeTurn(GameState gameState)
-        {
-
-        }
+        public abstract IAction TakeTurn(GameState gameState);
 
         public override string ToString()
         {

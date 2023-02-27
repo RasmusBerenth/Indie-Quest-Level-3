@@ -29,7 +29,7 @@ namespace MonsterQuest
 
         public override IEnumerator ReactToDamage(int damageAmount, bool wasCriticalHit)
         {
-            _hitPoints -= damageAmount;
+            _hitPoints -= Mathf.Max(0, _hitPoints - damageAmount);
 
 
             bool instantDeath = _hitPoints <= -_hitPointsMaximum;
@@ -87,7 +87,7 @@ namespace MonsterQuest
 
         public override IAction TakeTurn(GameState gameState)
         {
-            return base.TakeTurn(gameState);
+            return new AttackAction(this, gameState.combat.monster, _weapon);
         }
     }
 }

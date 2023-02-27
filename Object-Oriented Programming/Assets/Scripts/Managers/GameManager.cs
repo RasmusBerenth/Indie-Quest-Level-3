@@ -66,7 +66,7 @@ namespace MonsterQuest
                 yield return combatManager.Simulate(gameState);
             }
 
-            if (gameState.party.characters.Count > 0)
+            if (gameState.party.aliveCount > 0)
             {
                 Console.WriteLine($"{gameState.party} survived the doungeon.");
             }

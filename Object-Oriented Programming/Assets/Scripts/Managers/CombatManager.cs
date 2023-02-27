@@ -8,12 +8,23 @@ namespace MonsterQuest
 {
     public class CombatManager : MonoBehaviour
     {
+        public List<Creature> initativeList = new List<Creature>();
+
         public IEnumerator Simulate(GameState gameState)
         {
+            IAction action;
             var random = new Random();
             Monster monster = gameState.combat.monster;
 
+            foreach (Character character in gameState.party.characters)
+            {
+                initativeList.Add(character);
+            }
+            initativeList.Add(monster);
+
             Console.WriteLine($"A {monster} with {monster.hitPoints}HP appears");
+
+            ListHelper.Shuffle(initativeList);
 
             do
             {
@@ -24,21 +35,12 @@ namespace MonsterQuest
                         continue;
                     }
 
-                    int characterDamage = DiceHelper.Roll(character.weapon.damageRoll);
-
-                    yield return character.presenter.Attack();
-                    yield return monster.ReactToDamage(characterDamage);
-
-                    Console.Write($"{character} hits the {monster} with thier {character.weapon.displayName} for {characterDamage} damage. ");
+                    action = character.TakeTurn(gameState);
+                    yield return action.Execute();
 
                     if (monster.lifeStatus == LifeStatus.Dead)
                     {
-                        Console.WriteLine($"{monster} has died.");
                         break;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"{monster} has {monster.hitPoints} HP left.");
                     }
                 }
 
@@ -47,30 +49,10 @@ namespace MonsterQuest
                     break;
                 }
 
-                int targetIndex = random.Next(gameState.party.characters.Count);
-
-                Character targetCharacter = gameState.party.characters[targetIndex];
-
-                //Get weapon and damage used for monster attack
-                int weaponInUseIndex = random.Next(monster.monsterType.weaponTypes.Length);
-                WeaponType weaponInUse = monster.monsterType.weaponTypes[weaponInUseIndex];
-
-                int monstersDamage = DiceHelper.Roll(weaponInUse.damageRoll);
-
-                yield return monster.presenter.Attack();
-                yield return targetCharacter.ReactToDamage(monstersDamage);
-
-                if (targetCharacter.lifeStatus == LifeStatus.Dead)
-                {
-                    Console.WriteLine($"{targetCharacter} was attacked by {monster} using its {weaponInUse}, dealing {monstersDamage} damage, killing {targetCharacter}!");
-                    gameState.party.characters.Remove(targetCharacter);
-                }
-                else
-                {
-                    Console.WriteLine($"{targetCharacter} was attacked by {monster} using its {weaponInUse} dealing {monstersDamage} damage.");
-                }
+                action = monster.TakeTurn(gameState);
+                yield return action.Execute();
             }
-            while (gameState.party.characters.Count > 0);
+            while (gameState.party.aliveCount > 0);
 
             if (monster.lifeStatus == LifeStatus.Conscious)
             {
@@ -82,4 +64,5 @@ namespace MonsterQuest
             }
         }
     }
+
 }

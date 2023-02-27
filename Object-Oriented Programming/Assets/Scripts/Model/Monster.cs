@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace MonsterQuest
@@ -23,7 +24,15 @@ namespace MonsterQuest
 
         public override IAction TakeTurn(GameState gameState)
         {
-            return base.TakeTurn(gameState);
+            int targetIndex = Random.Range(0, gameState.party.aliveCount);
+
+            Character targetCharacter = gameState.party.aliveCharacters.Skip(targetIndex).First();
+
+            //Get weapon and damage used for monster attack
+            int weaponInUseIndex = Random.Range(0, _monsterType.weaponTypes.Length);
+            WeaponType weaponInUse = _monsterType.weaponTypes[weaponInUseIndex];
+
+            return new AttackAction(this, targetCharacter, weaponInUse);
         }
     }
 }

@@ -15,3 +15,4 @@ MonoBehaviour:
   displayName: Studded Leather
   weight: 13
   category: 0
+  armorClass: 12

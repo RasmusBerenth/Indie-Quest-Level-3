@@ -21,3 +21,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 605385f2e1f4d3c4dbaac98455893c58, type: 2}
   - {fileID: 11400000, guid: 8dda56f8731238946895ad396d968d7b, type: 2}
   bodySprite: {fileID: 21300000, guid: d9fc912d9c18d41e8a382129b7f7aa36, type: 3}
+  armorClass: 15

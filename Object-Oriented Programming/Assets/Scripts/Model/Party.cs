@@ -7,6 +7,8 @@ namespace MonsterQuest
 {
     public class Party
     {
+        public IEnumerable<Character> aliveCharacters => characters.Where(character => character.lifeStatus != LifeStatus.Dead);
+        public int aliveCount => aliveCharacters.Count();
         public List<Character> characters { get; private set; }
 
         public Party(IEnumerable<Character> initialCharacters)
@@ -18,5 +20,7 @@ namespace MonsterQuest
         {
             return StringHelper.JoinWithAnd(characters.Select(character => character.displayName));
         }
+
+
     }
 }
