@@ -29,8 +29,7 @@ namespace MonsterQuest
 
         public override IEnumerator ReactToDamage(int damageAmount, bool wasCriticalHit)
         {
-            _hitPoints -= Mathf.Max(0, _hitPoints - damageAmount);
-
+            _hitPoints -= damageAmount;
 
             bool instantDeath = _hitPoints <= -_hitPointsMaximum;
 
@@ -67,6 +66,8 @@ namespace MonsterQuest
                     }
                 }
             }
+
+            Debug.Log($"{this} has {_hitPoints} hit points.");
         }
 
         private IEnumerator AddDeathSavingThrow(bool succes)
@@ -87,6 +88,11 @@ namespace MonsterQuest
 
         public override IAction TakeTurn(GameState gameState)
         {
+            //if (lifeStatus != LifeStatus.Conscious)
+            //{
+            //    return new BeUnconsiousAction(this);
+            //}
+
             return new AttackAction(this, gameState.combat.monster, _weapon);
         }
     }

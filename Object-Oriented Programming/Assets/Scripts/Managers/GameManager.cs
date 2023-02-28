@@ -55,7 +55,7 @@ namespace MonsterQuest
 
             foreach (MonsterType monsterType in monsterTypes)
             {
-                if (gameState.party.characters.Count == 0)
+                if (gameState.party.aliveCount == 0)
                 {
                     break;
                 }

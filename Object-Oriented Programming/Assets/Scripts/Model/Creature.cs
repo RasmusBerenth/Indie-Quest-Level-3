@@ -79,7 +79,7 @@ namespace MonsterQuest
                 yield return presenter.Die();
             }
 
-            Console.WriteLine($"{this} has {_hitPoints} hit points.");
+            Debug.Log($"{this} has {_hitPoints} hit points.");
         }
 
         public abstract IAction TakeTurn(GameState gameState);

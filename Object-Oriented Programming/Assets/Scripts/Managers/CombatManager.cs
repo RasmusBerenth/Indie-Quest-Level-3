@@ -8,51 +8,42 @@ namespace MonsterQuest
 {
     public class CombatManager : MonoBehaviour
     {
-        public List<Creature> initativeList = new List<Creature>();
 
         public IEnumerator Simulate(GameState gameState)
         {
-            IAction action;
-            var random = new Random();
+            List<Creature> initativeList = new List<Creature>(gameState.party.characters);
+
             Monster monster = gameState.combat.monster;
 
-            foreach (Character character in gameState.party.characters)
-            {
-                initativeList.Add(character);
-            }
             initativeList.Add(monster);
 
             Console.WriteLine($"A {monster} with {monster.hitPoints}HP appears");
 
             ListHelper.Shuffle(initativeList);
+            bool combatEnded = false;
 
             do
             {
-                foreach (var character in gameState.party.characters)
+                foreach (Creature creature in initativeList)
                 {
-                    if (character.lifeStatus != LifeStatus.Conscious)
+                    if (creature.lifeStatus != LifeStatus.Conscious)
                     {
                         continue;
                     }
 
-                    action = character.TakeTurn(gameState);
+                    IAction action = creature.TakeTurn(gameState);
                     yield return action.Execute();
 
-                    if (monster.lifeStatus == LifeStatus.Dead)
+                    combatEnded = monster.lifeStatus == LifeStatus.Dead || gameState.party.aliveCount == 0;
+
+                    if (combatEnded)
                     {
                         break;
                     }
                 }
 
-                if (monster.lifeStatus == LifeStatus.Dead)
-                {
-                    break;
-                }
-
-                action = monster.TakeTurn(gameState);
-                yield return action.Execute();
             }
-            while (gameState.party.aliveCount > 0);
+            while (!combatEnded);
 
             if (monster.lifeStatus == LifeStatus.Conscious)
             {
