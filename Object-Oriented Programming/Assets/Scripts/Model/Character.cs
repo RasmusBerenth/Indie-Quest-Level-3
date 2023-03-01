@@ -70,6 +70,28 @@ namespace MonsterQuest
             Debug.Log($"{this} has {_hitPoints} hit points.");
         }
 
+        public IEnumerator HandleUnconsiousState()
+        {
+            int deathSavingThrow = DiceHelper.Roll("d20");
+
+            if (deathSavingThrow == 20)
+            {
+                yield return Heal(1);
+            }
+            else if (deathSavingThrow == 1)
+            {
+
+            }
+            else if (deathSavingThrow >= 10)
+            {
+                yield return AddDeathSavingThrow(true);
+            }
+            else
+            {
+                yield return AddDeathSavingThrow(false);
+            }
+        }
+
         private IEnumerator AddDeathSavingThrow(bool succes)
         {
             yield return presenter.PerformDeathSavingThrow(succes);
@@ -86,14 +108,20 @@ namespace MonsterQuest
             _deathSavingThrowsList.Add(succes);
         }
 
+        private void ClearDeathSavingTrows()
+        {
+            _deathSavingThrowsList.Clear();
+        }
+
         public override IAction TakeTurn(GameState gameState)
         {
-            //if (lifeStatus != LifeStatus.Conscious)
-            //{
-            //    return new BeUnconsiousAction(this);
-            //}
+            if (lifeStatus != LifeStatus.Conscious)
+            {
+                return new BeUnconsiousAction(this);
+            }
 
             return new AttackAction(this, gameState.combat.monster, _weapon);
         }
+
     }
 }

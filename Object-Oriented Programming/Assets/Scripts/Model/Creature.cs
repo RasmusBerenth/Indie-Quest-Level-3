@@ -82,6 +82,18 @@ namespace MonsterQuest
             Debug.Log($"{this} has {_hitPoints} hit points.");
         }
 
+        public IEnumerable Heal(int amount)
+        {
+            _hitPoints += amount;
+
+            if (lifeStatus == LifeStatus.UnconsciousUnstable)
+            {
+                lifeStatus = LifeStatus.Conscious;
+            }
+
+            yield return presenter.Heal();
+        }
+
         public abstract IAction TakeTurn(GameState gameState);
 
         public override string ToString()

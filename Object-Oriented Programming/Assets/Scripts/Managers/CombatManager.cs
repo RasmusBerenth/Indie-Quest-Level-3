@@ -26,7 +26,7 @@ namespace MonsterQuest
             {
                 foreach (Creature creature in initativeList)
                 {
-                    if (creature.lifeStatus != LifeStatus.Conscious)
+                    if (creature.lifeStatus == LifeStatus.Dead)
                     {
                         continue;
                     }
