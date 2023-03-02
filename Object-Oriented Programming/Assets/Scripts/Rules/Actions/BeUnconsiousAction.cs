@@ -17,22 +17,6 @@ namespace MonsterQuest
         public IEnumerator Execute()
         {
             yield return unconsiousCharacter.HandleUnconsiousState();
-
-            //int deathSavingThrow = DiceHelper.Roll("d20");
-            //if (deathSavingThrow == 20)
-            //{
-            //    yield return unconsiousCharacter.Heal(1);
-            //}
-            //else if (deathSavingThrow >= 10)
-            //{
-            //    //Succed death savingthrow
-            //    unconsiousCharacter.HandleUnconsiousState();
-            //}
-            //else
-            //{
-            //    //Fail death savingthrow
-            //    unconsiousCharacter.HandleUnconsiousState();
-            //}
         }
     }
 }

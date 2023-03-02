@@ -72,23 +72,59 @@ namespace MonsterQuest
 
         public IEnumerator HandleUnconsiousState()
         {
+            bool deathSavingThrowResult;
+            bool rolled1 = false;
             int deathSavingThrow = DiceHelper.Roll("d20");
+
+
+            Console.Write($"{this} rolls a death savingthrow");
 
             if (deathSavingThrow == 20)
             {
+                Console.WriteLine($"and rolls a 20 {this} comes back to 1 HP!");
+                lifeStatus = LifeStatus.Conscious;
                 yield return Heal(1);
-            }
-            else if (deathSavingThrow == 1)
-            {
-
-            }
-            else if (deathSavingThrow >= 10)
-            {
-                yield return AddDeathSavingThrow(true);
+                yield return presenter.RegainConsciousness();
+                ResetDeathSavingTrows();
             }
             else
             {
-                yield return AddDeathSavingThrow(false);
+                if (deathSavingThrow == 1)
+                {
+                    rolled1 = true;
+                    Console.WriteLine("and rolls a 1 failing 2 death savingthrows.");
+                }
+
+                if (deathSavingThrow >= 10)
+                {
+                    deathSavingThrowResult = true;
+                    Console.WriteLine($"and rolls a {deathSavingThrow} succed 1 death savingthrows.");
+                }
+                else
+                {
+                    deathSavingThrowResult = false;
+                    Console.WriteLine($"and rolls a {deathSavingThrow} failing 1 death savingthrows.");
+                }
+
+                int amountOfFails = rolled1 ? 2 : 1;
+                for (int i = 0; i < amountOfFails; i++)
+                {
+                    yield return AddDeathSavingThrow(deathSavingThrowResult);
+                }
+            }
+
+            if (this.deathSavingThrowSucces >= 3)
+            {
+                lifeStatus = LifeStatus.Conscious;
+                yield return Heal(1);
+                yield return presenter.RegainConsciousness();
+                ResetDeathSavingTrows();
+            }
+
+            if (this.deathSavingThrowFailures >= 3)
+            {
+                lifeStatus = LifeStatus.Dead;
+                yield return presenter.Die();
             }
         }
 
@@ -108,8 +144,10 @@ namespace MonsterQuest
             _deathSavingThrowsList.Add(succes);
         }
 
-        private void ClearDeathSavingTrows()
+        private void ResetDeathSavingTrows()
         {
+            _deathSavingThrowSucces = 0;
+            _deathSavingThrowFailures = 0;
             _deathSavingThrowsList.Clear();
         }
 
