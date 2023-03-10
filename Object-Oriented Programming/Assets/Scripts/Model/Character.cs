@@ -77,15 +77,15 @@ namespace MonsterQuest
             int deathSavingThrow = DiceHelper.Roll("d20");
 
 
-            Console.Write($"{this} rolls a death savingthrow");
+            Console.Write($"{this} rolls a death savingthrow ");
 
             if (deathSavingThrow == 20)
             {
                 Console.WriteLine($"and rolls a 20 {this} comes back to 1 HP!");
                 lifeStatus = LifeStatus.Conscious;
+                ResetDeathSavingTrows();
                 yield return Heal(1);
                 yield return presenter.RegainConsciousness();
-                ResetDeathSavingTrows();
             }
             else
             {
@@ -109,28 +109,29 @@ namespace MonsterQuest
                 int amountOfFails = rolled1 ? 2 : 1;
                 for (int i = 0; i < amountOfFails; i++)
                 {
-                    yield return AddDeathSavingThrow(deathSavingThrowResult);
+                    yield return AddDeathSavingThrow(deathSavingThrowResult, i == 0 ? deathSavingThrow : null);
                 }
             }
 
             if (this.deathSavingThrowSucces >= 3)
             {
                 lifeStatus = LifeStatus.Conscious;
-                yield return Heal(1);
-                yield return presenter.RegainConsciousness();
                 ResetDeathSavingTrows();
+                lifeStatus = LifeStatus.UnconsciousStable;
+                Console.WriteLine($"{this} has stabilized.");
             }
 
             if (this.deathSavingThrowFailures >= 3)
             {
                 lifeStatus = LifeStatus.Dead;
                 yield return presenter.Die();
+                Console.WriteLine($"{this} has died.");
             }
         }
 
-        private IEnumerator AddDeathSavingThrow(bool succes)
+        private IEnumerator AddDeathSavingThrow(bool succes, int? deathSaveResult = null)
         {
-            yield return presenter.PerformDeathSavingThrow(succes);
+            yield return presenter.PerformDeathSavingThrow(succes, deathSaveResult);
 
             if (succes)
             {
@@ -149,6 +150,7 @@ namespace MonsterQuest
             _deathSavingThrowSucces = 0;
             _deathSavingThrowFailures = 0;
             _deathSavingThrowsList.Clear();
+            presenter.ResetDeathSavingThrows();
         }
 
         public override IAction TakeTurn(GameState gameState)

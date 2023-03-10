@@ -16,7 +16,10 @@ namespace MonsterQuest
 
         public IEnumerator Execute()
         {
-            yield return unconsiousCharacter.HandleUnconsiousState();
+            if (unconsiousCharacter.lifeStatus == LifeStatus.UnconsciousUnstable)
+            {
+                yield return unconsiousCharacter.HandleUnconsiousState();
+            }
         }
     }
 }
