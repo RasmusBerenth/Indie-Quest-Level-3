@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace MonsterQuest
 {
+    [Serializable]
     public class AbilityScores
     {
         [field: SerializeField]
@@ -30,13 +32,13 @@ namespace MonsterQuest
         private AbilityScore _charisma;
         public AbilityScore charisma => _charisma;
 
-        public AbilityScores(AbilityScore strenght, AbilityScore dexterity, AbilityScore constitusion, AbilityScore wisdom, AbilityScore intelligence, AbilityScore charisma)
+        public AbilityScores(AbilityScore strenght, AbilityScore dexterity, AbilityScore constitusion, AbilityScore intelligence, AbilityScore wisdom, AbilityScore charisma)
         {
             _strenght = strenght;
             _dexterity = dexterity;
             _constitusion = constitusion;
-            _wisdom = wisdom;
             _intelligence = intelligence;
+            _wisdom = wisdom;
             _charisma = charisma;
         }
     }

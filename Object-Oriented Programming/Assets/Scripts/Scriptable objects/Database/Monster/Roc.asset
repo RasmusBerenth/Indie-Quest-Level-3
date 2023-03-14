@@ -22,3 +22,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8dda56f8731238946895ad396d968d7b, type: 2}
   bodySprite: {fileID: 21300000, guid: d9fc912d9c18d41e8a382129b7f7aa36, type: 3}
   armorClass: 15
+  abilityScores:
+    _strenght:
+      _score: 28
+    _dexterity:
+      _score: 10
+    _constitusion:
+      _score: 20
+    _wisdom:
+      _score: 10
+    _intelligence:
+      _score: 3
+    _charisma:
+      _score: 9
