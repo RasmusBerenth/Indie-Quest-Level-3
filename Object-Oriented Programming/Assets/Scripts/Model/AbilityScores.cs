@@ -8,27 +8,27 @@ namespace MonsterQuest
     [Serializable]
     public class AbilityScores
     {
-        [field: SerializeField]
+        [SerializeField]
         private AbilityScore _strenght;
         public AbilityScore strenght => _strenght;
 
-        [field: SerializeField]
+        [SerializeField]
         private AbilityScore _dexterity;
         public AbilityScore dexterity => _dexterity;
 
-        [field: SerializeField]
+        [SerializeField]
         private AbilityScore _constitusion;
         public AbilityScore constitusion => _constitusion;
 
-        [field: SerializeField]
+        [SerializeField]
         private AbilityScore _wisdom;
         public AbilityScore wisdom => _wisdom;
 
-        [field: SerializeField]
+        [SerializeField]
         private AbilityScore _intelligence;
         public AbilityScore intelligence => _intelligence;
 
-        [field: SerializeField]
+        [SerializeField]
         private AbilityScore _charisma;
         public AbilityScore charisma => _charisma;
 

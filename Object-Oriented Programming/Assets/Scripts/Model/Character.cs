@@ -18,6 +18,8 @@ namespace MonsterQuest
 
         public override int armorClass => armor.armorClass;
 
+        public override AbilityScores abilityScores { get; }
+
         public Character(int hitPointsMaximum, string displayName, Sprite bodySprite, SizeCategory sizeCategory, WeaponType weaponType, ArmorType armorType) : base(displayName, bodySprite, sizeCategory)
         {
             _hitPointsMaximum = hitPointsMaximum;
@@ -25,6 +27,7 @@ namespace MonsterQuest
             _weapon = weaponType;
             _armor = armorType;
             InitializeHitPoint();
+            //InitializeAbilityScore();
         }
 
         public override IEnumerator ReactToDamage(int damageAmount, bool wasCriticalHit)
@@ -162,6 +165,42 @@ namespace MonsterQuest
 
             return new AttackAction(this, gameState.combat.monster, _weapon);
         }
+
+        //static void Main(string[] args)
+        //{
+        //    //Roll 4 (1,6) sub lowest then add tougheter
+        //    var random = new Random();
+        //    int newRoll;
+        //    var abilityScores = new List<int>();
+
+        //    for (int i = 0; i < 6; i++)
+        //    {
+        //        int counter = 0;
+        //        int abilityScore = 0;
+        //        var rolls = new List<int>();
+
+        //        do
+        //        {
+        //            newRoll = random.Next(1, 7);
+        //            rolls.Add(newRoll);
+        //            abilityScore += newRoll;
+        //            counter++;
+        //        }
+        //        while (counter < 4);
+
+        //        rolls.Sort();
+        //        int lowestRoll = rolls[0];
+        //        abilityScore -= lowestRoll;
+        //        abilityScores.Add(abilityScore);
+
+        //        //Display rolls
+        //        Console.WriteLine($"You roll {String.Join(", ", rolls)}.The ability score is {abilityScore}.");
+        //    }
+
+        //    //Sort the ability scores into a list
+        //    abilityScores.Sort();
+        //    Console.WriteLine($"Your available ability scores are {String.Join(", ", abilityScores)}.");
+        //}
 
     }
 }

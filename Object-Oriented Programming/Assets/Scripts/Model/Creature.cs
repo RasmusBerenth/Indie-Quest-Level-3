@@ -48,6 +48,8 @@ namespace MonsterQuest
 
         public abstract int armorClass { get; }
 
+        public abstract AbilityScores abilityScores { get; }
+
         public Creature(string monsterName, Sprite bodySprite, SizeCategory sizeCategory)
         {
             _displayName = monsterName;

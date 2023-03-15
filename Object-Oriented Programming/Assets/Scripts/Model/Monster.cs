@@ -15,10 +15,13 @@ namespace MonsterQuest
 
         public override int armorClass => monsterType.armorClass;
 
+        public override AbilityScores abilityScores { get; }
+
         public Monster(MonsterType type) : base(type.displayName, type.bodySprite, type.sizeCategory)
         {
             _hitPointsMaximum = DiceHelper.Roll(type.hitPoint);
             _monsterType = type;
+            abilityScores = type.abilityScores;
             InitializeHitPoint();
         }
 
