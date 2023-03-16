@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Great axe
   weight: 7
-  damageRoll: 1d12+3
+  damageRoll: 1d12

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Beak
   weight: 0
-  damageRoll: 4d8+9
+  damageRoll: 4d8

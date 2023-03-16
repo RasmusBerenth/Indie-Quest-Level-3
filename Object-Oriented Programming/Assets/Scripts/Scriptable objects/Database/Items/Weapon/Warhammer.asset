@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Warhammer
   weight: 2
-  damageRoll: 1d8+3
+  damageRoll: 1d8
