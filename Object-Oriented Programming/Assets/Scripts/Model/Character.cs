@@ -167,33 +167,35 @@ namespace MonsterQuest
             return new AttackAction(this, gameState.combat.monster, _weapon);
         }
 
-        private AbilityScores InitializeAbilityScore()
+        private void InitializeAbilityScore()
         {
             int newRoll;
-            var abilityScores = new List<int>();
+            var abilityScores = new List<AbilityScore>();
 
             for (int i = 0; i < 6; i++)
             {
                 int counter = 0;
-                int abilityScore = 0;
+                int value = 0;
                 var rolls = new List<int>();
 
                 do
                 {
                     newRoll = DiceHelper.Roll("1d6");
                     rolls.Add(newRoll);
-                    abilityScore += newRoll;
+                    value += newRoll;
                     counter++;
                 }
                 while (counter < 4);
 
                 rolls.Sort();
                 int lowestRoll = rolls[0];
-                abilityScore -= lowestRoll;
+                value -= lowestRoll;
+                AbilityScore abilityScore = new AbilityScore(value);
                 abilityScores.Add(abilityScore);
             }
 
-            return _abilityScores;
+            _abilityScores = new AbilityScores(abilityScores[0], abilityScores[1], abilityScores[2], abilityScores[3], abilityScores[4], abilityScores[5]);
+
         }
 
     }

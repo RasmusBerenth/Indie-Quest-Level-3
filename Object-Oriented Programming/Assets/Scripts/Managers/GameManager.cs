@@ -31,11 +31,12 @@ namespace MonsterQuest
         {
             WeaponType[] characterWeapons = Database.itemTypes.Where(itemType => itemType is WeaponType { weight: > 0 }).Cast<WeaponType>().ToArray();
             ArmorType characterArmor = Database.GetItemType<ArmorType>("Studded Leather");
+            //Random.Range(0, characterWeapons.Length)
 
-            Character ken = new Character(10, "Ken", characterSprites[0], SizeCategory.Medium, characterWeapons[Random.Range(0, characterWeapons.Length)], characterArmor);
-            Character barbie = new Character(10, "Barbie", characterSprites[1], SizeCategory.Medium, characterWeapons[Random.Range(0, characterWeapons.Length)], characterArmor);
-            Character roland = new Character(10, "Roland", characterSprites[2], SizeCategory.Medium, characterWeapons[Random.Range(0, characterWeapons.Length)], characterArmor);
-            Character melissa = new Character(10, "Melissa", characterSprites[3], SizeCategory.Medium, characterWeapons[Random.Range(0, characterWeapons.Length)], characterArmor);
+            Character ken = new Character(10, "Ken", characterSprites[0], SizeCategory.Medium, characterWeapons[1], characterArmor);
+            Character barbie = new Character(10, "Barbie", characterSprites[1], SizeCategory.Medium, characterWeapons[3], characterArmor);
+            Character roland = new Character(10, "Roland", characterSprites[2], SizeCategory.Medium, characterWeapons[4], characterArmor);
+            Character melissa = new Character(10, "Melissa", characterSprites[3], SizeCategory.Medium, characterWeapons[5], characterArmor);
             List<Character> heros = new List<Character>();
             heros.Add(ken);
             heros.Add(barbie);

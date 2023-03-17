@@ -15,3 +15,5 @@ MonoBehaviour:
   displayName: Dagger
   weight: 1
   damageRoll: 1d4
+  isRanged: 0
+  isFinesse: 1

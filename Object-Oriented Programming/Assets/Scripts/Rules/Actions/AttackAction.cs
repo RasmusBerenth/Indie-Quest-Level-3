@@ -32,6 +32,10 @@ namespace MonsterQuest
             bool criticalHit = false;
             int damageAmount = 0;
 
+            int attackBonus = weapon.isRanged ? attacker.abilityScores.dexterity.modifier : attacker.abilityScores.strenght.modifier;
+
+
+
             if (target.lifeStatus == LifeStatus.Conscious)
             {
                 int attackRoll = DiceHelper.Roll("d20");
@@ -46,7 +50,7 @@ namespace MonsterQuest
                     criticalHit = true;
                     Console.Write($"{attacker} rolled a 20 and landed a critical hit on {target}!");
                 }
-                else if (attackRoll >= target.armorClass)
+                else if (attackRoll + attackBonus >= target.armorClass)
                 {
                     Console.Write($"{attacker} rolled a {attackRoll} and hit {target}!");
                 }

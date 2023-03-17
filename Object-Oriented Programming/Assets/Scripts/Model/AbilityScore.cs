@@ -18,5 +18,9 @@ namespace MonsterQuest
 
         public int modifier => Mathf.FloorToInt((_score - 10) / 2.0f);
 
+        public AbilityScore(int value)
+        {
+            _score = value;
+        }
     }
 }
