@@ -15,8 +15,6 @@ namespace MonsterQuest
         private WeaponType _weapon;
         public WeaponType weapon => _weapon;
 
-
-
         public AttackAction(Creature attacker, Creature target, WeaponType weapon)
         {
             _attacker = attacker;
@@ -34,7 +32,17 @@ namespace MonsterQuest
 
             int attackBonus = weapon.isRanged ? attacker.abilityScores.dexterity.modifier : attacker.abilityScores.strenght.modifier;
 
-
+            if (weapon.isFinesse)
+            {
+                if (attacker.abilityScores.strenght.modifier > attackBonus)
+                {
+                    attackBonus = attacker.abilityScores.strenght.modifier;
+                }
+                else
+                {
+                    attackBonus -= attacker.abilityScores.dexterity.modifier;
+                }
+            }
 
             if (target.lifeStatus == LifeStatus.Conscious)
             {
@@ -52,11 +60,11 @@ namespace MonsterQuest
                 }
                 else if (attackRoll + attackBonus >= target.armorClass)
                 {
-                    Console.Write($"{attacker} rolled a {attackRoll} and hit {target}!");
+                    Console.Write($"{attacker} rolled a {attackRoll} + {attackBonus} and hit {target}!");
                 }
                 else
                 {
-                    Console.WriteLine($"{attacker} rolled a {attackRoll} and missed {target}!");
+                    Console.WriteLine($"{attacker} rolled a {attackRoll} + {attackBonus} and missed {target}!");
                     yield break;
                 }
 
