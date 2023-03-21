@@ -32,16 +32,9 @@ namespace MonsterQuest
 
             int attackBonus = weapon.isRanged ? attacker.abilityScores.dexterity.modifier : attacker.abilityScores.strenght.modifier;
 
-            if (weapon.isFinesse)
+            if (weapon.isFinesse && !weapon.isRanged && attacker.abilityScores.dexterity.modifier > attackBonus)
             {
-                if (attacker.abilityScores.strenght.modifier > attackBonus)
-                {
-                    attackBonus = attacker.abilityScores.strenght.modifier;
-                }
-                else
-                {
-                    attackBonus -= attacker.abilityScores.dexterity.modifier;
-                }
+                attackBonus = attacker.abilityScores.dexterity.modifier;
             }
 
             if (target.lifeStatus == LifeStatus.Conscious)
@@ -50,21 +43,21 @@ namespace MonsterQuest
 
                 if (attackRoll == 1)
                 {
-                    Console.WriteLine($"{attacker} rolled a 1 and missed {target}!");
+                    Console.WriteLine($"{attacker} attacks using their {weapon}, rolling a 1 missing {target}!");
                     yield break;
                 }
                 else if (attackRoll == 20)
                 {
                     criticalHit = true;
-                    Console.Write($"{attacker} rolled a 20 and landed a critical hit on {target}!");
+                    Console.Write($"{attacker} attacks using their {weapon}, rolling a 20 and landed a critical hit on {target}!");
                 }
                 else if (attackRoll + attackBonus >= target.armorClass)
                 {
-                    Console.Write($"{attacker} rolled a {attackRoll} + {attackBonus} and hit {target}!");
+                    Console.Write($"{attacker} attacks using their {weapon}, rolling a {attackRoll} + {attackBonus} and hit {target}!");
                 }
                 else
                 {
-                    Console.WriteLine($"{attacker} rolled a {attackRoll} + {attackBonus} and missed {target}!");
+                    Console.WriteLine($"{attacker} attacks using their {weapon}, rolling a {attackRoll} + {attackBonus} missing {target}!");
                     yield break;
                 }
 
@@ -79,7 +72,7 @@ namespace MonsterQuest
             {
                 damageAmount = DiceHelper.Roll(weapon.damageRoll);
             }
-            Console.WriteLine($" Dealing {damageAmount} points of damage using their {weapon}.");
+            Console.WriteLine($" Dealing {damageAmount} points of damage.");
 
             yield return target.ReactToDamage(damageAmount, criticalHit);
         }

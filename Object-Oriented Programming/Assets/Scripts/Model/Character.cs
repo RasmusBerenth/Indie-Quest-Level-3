@@ -71,7 +71,7 @@ namespace MonsterQuest
                 }
             }
 
-            Debug.Log($"{this} has {_hitPoints} hit points.");
+            Console.WriteLine($"{this} has {_hitPoints} hit points.");
         }
 
         public IEnumerator HandleUnconsiousState()

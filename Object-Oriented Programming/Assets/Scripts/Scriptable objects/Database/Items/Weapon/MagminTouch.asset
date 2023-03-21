@@ -15,3 +15,5 @@ MonoBehaviour:
   displayName: Touch
   weight: 0
   damageRoll: 2d6
+  isRanged: 0
+  isFinesse: 1

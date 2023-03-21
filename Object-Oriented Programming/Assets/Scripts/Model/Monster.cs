@@ -27,7 +27,16 @@ namespace MonsterQuest
 
         public override IAction TakeTurn(GameState gameState)
         {
-            int targetIndex = Random.Range(0, gameState.party.aliveCount);
+            int targetIndex;
+
+            if (this.abilityScores.intelligence > 7)
+            {
+                targetIndex = gameState.party.aliveCharacters.Min().hitPoints;
+            }
+            else
+            {
+                targetIndex = Random.Range(0, gameState.party.aliveCount);
+            }
 
             Character targetCharacter = gameState.party.aliveCharacters.Skip(targetIndex).First();
 

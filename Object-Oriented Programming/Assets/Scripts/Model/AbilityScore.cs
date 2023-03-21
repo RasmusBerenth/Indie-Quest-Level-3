@@ -22,5 +22,12 @@ namespace MonsterQuest
         {
             _score = value;
         }
+
+        public static implicit operator int(AbilityScore abilityScore)
+        {
+            return abilityScore.score;
+        }
     }
+
+
 }
