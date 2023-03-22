@@ -27,18 +27,24 @@ namespace MonsterQuest
 
         public override IAction TakeTurn(GameState gameState)
         {
-            int targetIndex;
+            Character targetCharacter = null;
 
             if (this.abilityScores.intelligence > 7)
             {
-                targetIndex = gameState.party.aliveCharacters.Min().hitPoints;
+                foreach (Character character in gameState.party.aliveCharacters)
+                {
+                    if (targetCharacter == null || character.hitPoints < targetCharacter.hitPoints)
+                    {
+                        targetCharacter = character;
+                    }
+                }
             }
             else
             {
-                targetIndex = Random.Range(0, gameState.party.aliveCount);
+                int targetIndex = Random.Range(0, gameState.party.aliveCount);
+                targetCharacter = gameState.party.aliveCharacters.Skip(targetIndex).First();
             }
 
-            Character targetCharacter = gameState.party.aliveCharacters.Skip(targetIndex).First();
 
             //Get weapon and damage used for monster attack
             int weaponInUseIndex = Random.Range(0, _monsterType.weaponTypes.Length);

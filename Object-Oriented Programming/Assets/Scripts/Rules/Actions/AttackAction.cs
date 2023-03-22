@@ -53,7 +53,7 @@ namespace MonsterQuest
                 }
                 else if (attackRoll + attackBonus >= target.armorClass)
                 {
-                    Console.Write($"{attacker} attacks using their {weapon}, rolling a {attackRoll} + {attackBonus} and hit {target}!");
+                    Console.Write($"{attacker} attacks using their {weapon}, rolling a {attackRoll} + {attackBonus} hitting {target}!");
                 }
                 else
                 {
