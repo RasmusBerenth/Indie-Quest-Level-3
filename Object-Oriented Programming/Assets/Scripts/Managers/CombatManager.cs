@@ -19,7 +19,7 @@ namespace MonsterQuest
 
             Console.WriteLine($"A {monster} with {monster.hitPoints}HP appears");
 
-            ListHelper.Shuffle(initativeList);
+            initativeList.Shuffle();
             bool combatEnded = false;
 
             do

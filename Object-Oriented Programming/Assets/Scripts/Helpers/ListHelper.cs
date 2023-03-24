@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace MonsterQuest
 {
-    public class ListHelper
+    public static class ListHelper
     {
-        public static void Shuffle<Creature>(List<Creature> items)
+        public static void Shuffle<T>(this IList<T> items)
         {
             //-- To shuffle an array a of n elements (indices 0..n-1):
             //for i from n?1 downto 1 do
