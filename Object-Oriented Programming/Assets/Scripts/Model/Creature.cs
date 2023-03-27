@@ -81,7 +81,7 @@ namespace MonsterQuest
                 yield return presenter.Die();
             }
 
-            Console.WriteLine($"{this} has {_hitPoints} hit points.");
+            Console.WriteLine($"{this.displayName.ToUpperCase()} has {_hitPoints} hit points.");
         }
 
         public IEnumerable Heal(int amount)

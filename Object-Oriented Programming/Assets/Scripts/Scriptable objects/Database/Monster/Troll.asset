@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222dfd15368133e4abad52b0fe2e454e, type: 3}
   m_Name: Troll
   m_EditorClassIdentifier: 
-  displayName: Troll
+  displayName: troll
   sizeCategory: 4
   alignment: Chaotic Evil
   hitPoint: 8d10+40

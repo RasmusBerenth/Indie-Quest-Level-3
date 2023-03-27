@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222dfd15368133e4abad52b0fe2e454e, type: 3}
   m_Name: Roc
   m_EditorClassIdentifier: 
-  displayName: Roc
+  displayName: roc
   sizeCategory: 6
   alignment: Unaligned
   hitPoint: 16d20+80

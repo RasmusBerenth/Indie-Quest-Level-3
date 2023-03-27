@@ -43,21 +43,21 @@ namespace MonsterQuest
 
                 if (attackRoll == 1)
                 {
-                    Console.WriteLine($"{attacker} attacks using their {weapon}, rolling a 1 missing {target}!");
+                    Console.WriteLine($"{attacker.displayName.ToUpperCase()} attacks using their {weapon}, rolling a 1 missing {target}!");
                     yield break;
                 }
                 else if (attackRoll == 20)
                 {
                     criticalHit = true;
-                    Console.Write($"{attacker} attacks using their {weapon}, rolling a 20 and landed a critical hit on {target}!");
+                    Console.Write($"{attacker.displayName.ToUpperCase()} attacks using their {weapon}, rolling a 20 and landed a critical hit on {target}!");
                 }
                 else if (attackRoll + attackBonus >= target.armorClass)
                 {
-                    Console.Write($"{attacker} attacks using their {weapon}, rolling a {attackRoll} + {attackBonus} hitting {target}!");
+                    Console.Write($"{attacker.displayName.ToUpperCase()} attacks using their {weapon}, rolling a {attackRoll} + {attackBonus} hitting {target}!");
                 }
                 else
                 {
-                    Console.WriteLine($"{attacker} attacks using their {weapon}, rolling a {attackRoll} + {attackBonus} missing {target}!");
+                    Console.WriteLine($"{attacker.displayName.ToUpperCase()} attacks using their {weapon}, rolling a {attackRoll} + {attackBonus} missing {target}!");
                     yield break;
                 }
 

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MonsterQuest
 {
-    public class StringHelper
+    public static class StringHelper
     {
         public static string JoinWithAnd(IEnumerable<string> items, bool useSerialComma = true)
         {
@@ -50,6 +50,15 @@ namespace MonsterQuest
                 }
                 return String.Join(", ", itemsCopy);
             }
+        }
+
+        public static string ToUpperCase(this string s)
+        {
+            //char[] letters = s.ToCharArray();
+            //letters[0] = char.ToUpper(letters[0]);
+            //return new string(letters);
+
+            return Char.ToUpper(s[0]) + s.Remove(0, 1);
         }
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222dfd15368133e4abad52b0fe2e454e, type: 3}
   m_Name: Kobold
   m_EditorClassIdentifier: 
-  displayName: Kobold
+  displayName: kobold
   sizeCategory: 2
   alignment: Lawful Evil
   hitPoint: 2d6-2

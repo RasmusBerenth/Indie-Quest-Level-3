@@ -47,8 +47,7 @@ namespace MonsterQuest
 
 
             //Get weapon and damage used for monster attack
-            int weaponInUseIndex = Random.Range(0, _monsterType.weaponTypes.Length);
-            WeaponType weaponInUse = _monsterType.weaponTypes[weaponInUseIndex];
+            WeaponType weaponInUse = _monsterType.weaponTypes.Random();
 
             return new AttackAction(this, targetCharacter, weaponInUse);
         }

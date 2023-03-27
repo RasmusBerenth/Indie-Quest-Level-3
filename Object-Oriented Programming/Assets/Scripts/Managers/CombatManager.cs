@@ -17,7 +17,7 @@ namespace MonsterQuest
 
             initativeList.Add(monster);
 
-            Console.WriteLine($"A {monster} with {monster.hitPoints}HP appears");
+            Console.WriteLine($"{monster.displayName.ToUpperCase()} with {monster.hitPoints}HP appears");
 
             initativeList.Shuffle();
             bool combatEnded = false;

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222dfd15368133e4abad52b0fe2e454e, type: 3}
   m_Name: Azer
   m_EditorClassIdentifier: 
-  displayName: Azer
+  displayName: azer
   sizeCategory: 3
   alignment: Lawful Neutral
   hitPoint: 6d8+12
