@@ -2,13 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = System.Random;
 
 namespace MonsterQuest
 {
     public class CombatManager : MonoBehaviour
     {
-
         public IEnumerator Simulate(GameState gameState)
         {
             List<Creature> initativeList = new List<Creature>(gameState.party.characters);
