@@ -1,0 +1,26 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:VisualElement name="Strenght" style="flex-direction: row;">
+        <uie:PropertyField label="Strenght" binding-path="_strenght._score" />
+        <ui:Label display-tooltip-when-elided="true" name="StrenghtModifier" />
+    </ui:VisualElement>
+    <ui:VisualElement name="Dexterity" style="flex-direction: row;">
+        <uie:PropertyField label="Dexterity" binding-path="_dexterity._score" style="flex-direction: column;" />
+        <ui:Label display-tooltip-when-elided="true" name="DexterityModifer" style="flex-direction: column;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="Constitusion" style="flex-direction: row;">
+        <uie:PropertyField binding-path="_constitusion._score" label="Constitusion" />
+        <ui:Label display-tooltip-when-elided="true" name="ConstitusionModifier" />
+    </ui:VisualElement>
+    <ui:VisualElement name="Wisdom" style="flex-direction: row;">
+        <uie:PropertyField label="Wisdom" binding-path="_wisdom._score" />
+        <ui:Label display-tooltip-when-elided="true" name="WisdomModifier" />
+    </ui:VisualElement>
+    <ui:VisualElement name="Intelligence" style="flex-direction: row;">
+        <uie:PropertyField label="Intelligence" binding-path="_intelligence._score" />
+        <ui:Label display-tooltip-when-elided="true" name="IntelligenceModifier" />
+    </ui:VisualElement>
+    <ui:VisualElement name="Charisma" style="flex-direction: row;">
+        <uie:PropertyField label="Charisma" binding-path="_charisma._score" />
+        <ui:Label display-tooltip-when-elided="true" name="CharismaModifier" />
+    </ui:VisualElement>
+</ui:UXML>
