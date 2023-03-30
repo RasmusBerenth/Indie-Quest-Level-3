@@ -10,11 +10,9 @@ namespace MonsterQuest
     [CustomEditor(typeof(MonsterType))]
     public class MonsterTypeEditor : Editor
     {
-
         public override VisualElement CreateInspectorGUI()
         {
             VisualElement inspector = new VisualElement();
-
 
             //Deafult inspector
             InspectorElement.FillDefaultInspector(inspector, serializedObject, this);
