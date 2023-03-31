@@ -13,6 +13,14 @@ namespace MonsterQuest
         public override VisualElement CreateInspectorGUI()
         {
             VisualElement inspector = new VisualElement();
+            DropdownField monsterDropDownField = new DropdownField();
+            Label label = new Label();
+
+            label.text = "Imported monster";
+            inspector.Add(label);
+
+            monsterDropDownField.choices.AddRange(MonsterTypeImporter.monsterIndexNames);
+            inspector.Add(monsterDropDownField);
 
             //Deafult inspector
             InspectorElement.FillDefaultInspector(inspector, serializedObject, this);
