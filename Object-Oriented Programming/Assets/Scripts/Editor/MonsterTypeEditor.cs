@@ -18,7 +18,6 @@ namespace MonsterQuest
 
             label.text = "Imported monster";
             inspector.Add(label);
-
             monsterDropDownField.choices.AddRange(MonsterTypeImporter.monsterIndexNames);
             inspector.Add(monsterDropDownField);
 
