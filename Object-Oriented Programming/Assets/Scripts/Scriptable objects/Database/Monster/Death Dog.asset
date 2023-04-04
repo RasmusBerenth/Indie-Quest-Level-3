@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222dfd15368133e4abad52b0fe2e454e, type: 3}
+  m_Name: Death Dog
+  m_EditorClassIdentifier: 
+  displayName: Death Dog
+  sizeCategory: 3
+  alignment: neutral evil
+  hitPoint: 6d8+12
+  armorType: {fileID: 0}
+  weaponTypes:
+  - {fileID: 11400000, guid: 3ae02d193a4aaff40a671beaa68733cd, type: 2}
+  bodySprite: {fileID: 21300000, guid: be6b94493bf524d42af900f092454db9, type: 3}
+  armorClass: 12
+  abilityScores:
+    _strenght:
+      _score: 15
+    _dexterity:
+      _score: 14
+    _constitusion:
+      _score: 14
+    _wisdom:
+      _score: 13
+    _intelligence:
+      _score: 3
+    _charisma:
+      _score: 6

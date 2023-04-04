@@ -20,11 +20,17 @@ namespace MonsterQuest
             inspector.Add(label);
             monsterDropDownField.choices.AddRange(MonsterTypeImporter.monsterIndexNames);
             inspector.Add(monsterDropDownField);
+            monsterDropDownField.RegisterValueChangedCallback(OnDropdownChangedEvent);
 
             //Deafult inspector
             InspectorElement.FillDefaultInspector(inspector, serializedObject, this);
 
             return inspector;
+        }
+
+        private void OnDropdownChangedEvent(ChangeEvent<string> evt)
+        {
+            MonsterTypeImporter.ImportData(evt.newValue, (MonsterType)serializedObject.targetObject);
         }
     }
 }
