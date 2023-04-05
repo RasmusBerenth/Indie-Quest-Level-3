@@ -38,7 +38,7 @@ namespace MonsterQuest
             {
                 currentX += creature.spaceInFeet;
 
-                if (creature.lifeStatus != LifeStatus.Dead) continue;
+                if (creature.lifeStatus == LifeStatus.Dead) continue;
 
                 float spaceRadius = creature.spaceInFeet / 2;
 
